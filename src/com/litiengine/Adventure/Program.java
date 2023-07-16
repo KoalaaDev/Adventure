@@ -1,6 +1,9 @@
 package com.litiengine.Adventure;
 
+import com.litiengine.Adventure.screens.inGameScreen;
+
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class Program {
@@ -19,6 +22,13 @@ public class Program {
     Game.init(args);
     //set the icon
     Game.window().setIcon(Resources.images().get("images/windowlogo.png"));
+    Resources.load("maps/game.litidata");
+    // add the screens that will help you organize the different states of your game
+    Game.screens().add(new inGameScreen());
+
+    // load the first level (resources for the map were implicitly loaded from the game file)
+    Game.world().loadEnvironment("maps/level1.tmx");
+
     Game.start();
   }
 }
