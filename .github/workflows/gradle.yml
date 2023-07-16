@@ -13,6 +13,7 @@ on: [push]
 
 jobs:
   build:
+    name: run-test
     runs-on: ubuntu-latest
 
     steps:
