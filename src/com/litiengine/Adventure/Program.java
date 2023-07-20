@@ -20,6 +20,7 @@ public class Program {
     Game.audio().playMusic(Resources.sounds().get("audio/looping-overcome-atmanan.mp3")); // background music
 
     Game.init(args);
+    GameManager.start();
     //set the icon
     Game.window().setIcon(Resources.images().get("images/windowlogo.png"));
     Resources.load("maps/game.litidata");
