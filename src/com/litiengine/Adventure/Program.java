@@ -3,7 +3,6 @@ package com.litiengine.Adventure;
 import com.litiengine.Adventure.screens.inGameScreen;
 
 import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.environment.tilemap.IMap;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public class Program {
@@ -24,6 +23,7 @@ public class Program {
     //set the icon
     Game.window().setIcon(Resources.images().get("images/windowlogo.png"));
     Resources.load("maps/game.litidata");
+
     // add the screens that will help you organize the different states of your game
     Game.screens().add(new inGameScreen());
 

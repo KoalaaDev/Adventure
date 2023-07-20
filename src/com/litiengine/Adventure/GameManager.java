@@ -10,8 +10,13 @@ public final class GameManager {
   }
   
   public static void start(){
-    Camera camera = new FreeFlightCamera(0, 0);
+    Camera camera = new FreeFlightCamera(500, 1000);
     camera.setClampToMap(true);
+    // zoom the camera in a bit
+    camera.setZoom(1.75f, 0);
     Game.world().setCamera(camera);
+    
+
+
   }
 }
