@@ -29,7 +29,7 @@ public class Program {
 
     // load the first level (resources for the map were implicitly loaded from the game file)
     Game.world().loadEnvironment("maps/level1.tmx");
-
+    
     Game.start();
   }
 }
