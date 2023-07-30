@@ -19,7 +19,6 @@ public final class GameManager {
     camera.setZoom(1.2f, 0);
     Game.world().setCamera(camera);
 
-    Game.world().setGravity(120);
     Game.world().onLoaded(e -> {
 
       // spawn the player instance on the spawn point with the name "enter"
