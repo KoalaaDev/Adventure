@@ -1,42 +1,47 @@
 package com.litiengine.Adventure.entity;
-import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.entities.Creature;
-import de.gurkenlabs.litiengine.entities.EntityInfo;
-import de.gurkenlabs.litiengine.entities.MovementInfo;
+import com.litiengine.Adventure.abilities.Jump;
 
-@EntityInfo(width = 18, height = 18) 
-@MovementInfo(velocity = 70)
+import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.entities.Action;
+import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.physics.Collision;
+
+import java.awt.geom.Rectangle2D;
+
+
 public abstract class Player extends Creature {
     // create a player class for a dungeon crawler
-    private final int maxHealth;
-    private int currentHealth;
-    private final int maxMana;
-    private int currentMana;
-    private final int maxStamina;
-    private int currentStamina;
+    protected final Jump jump;
+    protected int consecutiveJumps;
+    public static final int MAX_ADDITIONAL_JUMPS = 1;
 
-    protected Player(int maxHealth, int maxMana, int maxStamina, String spriteName) {
+    protected Player(String spriteName) {
         super(spriteName);
-        this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
-        this.maxMana = maxMana;
-        this.currentMana = maxMana;
-        this.maxStamina = maxStamina;
-        this.currentStamina = maxStamina;
+        this.jump = new Jump(this);
     }
 
-    public int getMaxHealth() {
-        return maxHealth;
+    @Action(description = "This performs the jump ability for the player's entity.")
+    public void jump() {
+        if (this.consecutiveJumps >= MAX_ADDITIONAL_JUMPS || !this.jump.canCast()) {
+            return;
+        }
+
+        this.jump.cast();
+        this.consecutiveJumps++;
     }
 
-    public int getCurrentHealth() {
-        return currentHealth;
+    protected boolean isTouchingGround() {
+        // the idea of this ground check is to extend the current collision box by
+        // one pixel and see if
+        // a) it collides with any static collision box
+        Rectangle2D groundCheck = new Rectangle2D.Double(this.getCollisionBox().getX(), this.getCollisionBox().getY(), this.getCollisionBoxWidth(), this.getCollisionBoxHeight() + 1);
+
+        // b) it collides with the map's boundaries
+        if (groundCheck.getMaxY() > Game.physics().getBounds().getMaxY()) {
+        return true;
+        }
+
+        return Game.physics().collides(groundCheck, Collision.STATIC);
     }
-
-    protected void Death() {
-        Game.world().environment().remove(this);
-    }
-
-
 }
+
