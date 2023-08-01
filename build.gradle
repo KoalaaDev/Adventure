@@ -25,7 +25,7 @@ tasks.withType(Copy).all {
 }
 sourceSets {
     main.java.srcDir "src"
-    main.resources.srcDirs = ["sprites", "audio", "maps", "misc"]
+    main.resources.srcDirs = ["sprites", "audio", "maps", "images"]
 
     // main.resources.includes = ["game.litidata"]
 }
