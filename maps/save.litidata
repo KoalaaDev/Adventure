@@ -94,6 +94,9 @@
    </objectgroup>
   </map>
   <map version="1.1" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="60" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1" name="map1">
+   <properties>
+    <property name="GRAVITY" type="int" value="150"/>
+   </properties>
    <tileset firstgid="1" source="entrance.tsx"/>
    <layer id="1" name="Tile Layer 1" width="60" height="35">
     <data encoding="csv">
@@ -332,6 +335,15 @@
       <property name="collisionType" value="DYNAMIC"/>
       <property name="collisionValign" value="DOWN"/>
       <property name="triggerActivation" value="COLLISION"/>
+     </properties>
+    </object>
+    <object id="29" name="Water" type="COLLISIONBOX" x="480" y="1088" width="448" height="32">
+     <properties>
+      <property name="collisionAlign" value="CENTER"/>
+      <property name="collisionType" value="STATIC"/>
+      <property name="collisionValign" value="DOWN"/>
+      <property name="isDeadly" value="True"/>
+      <property name="tags" value="deadly"/>
      </properties>
     </object>
    </objectgroup>

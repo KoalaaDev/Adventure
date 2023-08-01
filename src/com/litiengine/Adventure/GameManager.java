@@ -18,7 +18,6 @@ public final class GameManager {
     Game.world().setCamera(camera);
     // zoom the camera in a bit
     Game.world().setCamera(camera);
-    Game.world().setGravity(120);
 
     Game.world().onLoaded(e -> {
 

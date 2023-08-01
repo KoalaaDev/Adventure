@@ -1,4 +1,6 @@
 package com.litiengine.Adventure.entity;
+import com.litiengine.Adventure.GameManager;
+
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.input.PlatformingMovementController;
@@ -29,6 +31,14 @@ public final class Wizard extends Player implements IUpdateable {
     public void update() {
         if (this.isTouchingGround()) {
             this.consecutiveJumps = 0;
+        }
+        if (this.colllideDeadly()){
+            //respawn player
+            this.die();
+            // remove the player from the world
+            Game.world().environment().remove(this);
+            // display a message to the player
+            GameManager.start();
         }
     }
     @Override

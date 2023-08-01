@@ -3,6 +3,7 @@ import com.litiengine.Adventure.abilities.Jump;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Action;
+import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.physics.Collision;
 
@@ -43,5 +44,17 @@ public abstract class Player extends Creature {
 
         return Game.physics().collides(groundCheck, Collision.STATIC);
     }
+
+    protected boolean colllideDeadly(){
+        Rectangle2D deadlyCheck = new Rectangle2D.Double(this.getCollisionBox().getX(), this.getCollisionBox().getY(), this.getCollisionBoxWidth(), this.getCollisionBoxHeight() + 1);
+        java.util.Collection<CollisionBox> deadly = Game.world().environment().getCollisionBoxes("deadly");
+        for (CollisionBox box : deadly) {
+            if (deadlyCheck.intersects(box.getBoundingBox())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
