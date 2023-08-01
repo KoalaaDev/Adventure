@@ -1,0 +1,380 @@
+Index: src/com/litiengine/Adventure/Program.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.litiengine.Adventure;\n\nimport com.litiengine.Adventure.screens.inGameScreen;\n\nimport de.gurkenlabs.litiengine.Game;\nimport de.gurkenlabs.litiengine.environment.tilemap.IMap;\nimport de.gurkenlabs.litiengine.resources.Resources;\n\npublic class Program {\n\n  public static void main(String[] args) {\n    //meta data\n    Game.info().setName(\"Adventure Legends\");\n    Game.info().setSubTitle(\"An RPG Adventure created by Group 1\");\n    Game.info().setVersion(\"v0.0.1\");\n    Game.info().setWebsite(\"https://github.com/KoalaaDev/Adventure\");\n    Game.info().setDescription(\"A 2D RPG Adventure Game created by Group 1 for the OOP course\");\n    \n    \n    Game.audio().playMusic(Resources.sounds().get(\"audio/looping-overcome-atmanan.mp3\")); // background music\n\n    Game.init(args);\n    GameManager.start();\n    //set the icon\n    Game.window().setIcon(Resources.images().get(\"images/windowlogo.png\"));\n    Resources.load(\"maps/game.litidata\");\n    // add the screens that will help you organize the different states of your game\n    Game.screens().add(new inGameScreen());\n\n    // load the first level (resources for the map were implicitly loaded from the game file)\n    Game.world().loadEnvironment(\"maps/level1.tmx\");\n\n    Game.start();\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/litiengine/Adventure/Program.java b/src/com/litiengine/Adventure/Program.java
+--- a/src/com/litiengine/Adventure/Program.java	(revision c103717fe6a6d2decc26e479bb0d3f2666d4ab67)
++++ b/src/com/litiengine/Adventure/Program.java	(date 1689850267224)
+@@ -1,9 +1,6 @@
+ package com.litiengine.Adventure;
+ 
+-import com.litiengine.Adventure.screens.inGameScreen;
+-
+ import de.gurkenlabs.litiengine.Game;
+-import de.gurkenlabs.litiengine.environment.tilemap.IMap;
+ import de.gurkenlabs.litiengine.resources.Resources;
+ 
+ public class Program {
+@@ -23,13 +20,6 @@
+     GameManager.start();
+     //set the icon
+     Game.window().setIcon(Resources.images().get("images/windowlogo.png"));
+-    Resources.load("maps/game.litidata");
+-    // add the screens that will help you organize the different states of your game
+-    Game.screens().add(new inGameScreen());
+-
+-    // load the first level (resources for the map were implicitly loaded from the game file)
+-    Game.world().loadEnvironment("maps/level1.tmx");
+-
+     Game.start();
+   }
+ }
+Index: src/com/litiengine/Adventure/GameManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.litiengine.Adventure;\n\nimport de.gurkenlabs.litiengine.Game;\nimport de.gurkenlabs.litiengine.graphics.Camera;\nimport de.gurkenlabs.litiengine.graphics.FreeFlightCamera;\n\npublic final class GameManager {\n  \n  private GameManager() {\n  }\n  \n  public static void start(){\n    Camera camera = new FreeFlightCamera(0, 0);\n    camera.setClampToMap(true);\n    Game.world().setCamera(camera);\n  }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/litiengine/Adventure/GameManager.java b/src/com/litiengine/Adventure/GameManager.java
+--- a/src/com/litiengine/Adventure/GameManager.java	(revision c103717fe6a6d2decc26e479bb0d3f2666d4ab67)
++++ b/src/com/litiengine/Adventure/GameManager.java	(date 1689850383455)
+@@ -10,7 +10,7 @@
+   }
+   
+   public static void start(){
+-    Camera camera = new FreeFlightCamera(0, 0);
++    Camera camera = new FreeFlightCamera(100, 100);
+     camera.setClampToMap(true);
+     Game.world().setCamera(camera);
+   }
+Index: config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>cl_exitOnError=false\ncl_language=en\ncl_country=SG\ncl_showGameMetrics=false\ncl_maxFps=60\nsfx_musicVolume=0.5\nsfx_soundVolume=0.5\ngfx_resolutionWidth=1536\ngfx_reduceFramesWhenNotFocused=true\ngfx_displayMode=WINDOWED\ngfx_graphicQuality=LOW\ngfx_resolutionHeight=764\ngfx_enableResolutionScale=true\ngfx_colorInterpolation=false\ngfx_antiAliasing=false\ngfx_renderDynamicShadows=false\ninput_mouseSensitivity=1.0\ninput_gamepadSupport=false\ninput_gamepadTriggerDeadzone=0.1\ninput_gamepadStickDeadzone=0.15\ninput_gamepadAxisDeadzone=0.3\ndbg_renderDebugMouse=false\ndbg_showMouseTargetMetric=true\ndbg_showTilesMetric=false\ndbg_renderEntityNames=false\ndbg_renderBoundingBoxes=false\ndbg_renderCollisionBoxes=false\ndbg_renderHitBoxes=false\ndbg_debugEnabled=false\ndbg_renderGuiComponentBoundingBoxes=false\ndbg_trackRenderTimes=false\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/config.properties b/config.properties
+--- a/config.properties	(revision c103717fe6a6d2decc26e479bb0d3f2666d4ab67)
++++ b/config.properties	(date 1689850392437)
+@@ -1,31 +1,31 @@
++cl_country=SG
+ cl_exitOnError=false
+ cl_language=en
+-cl_country=SG
++cl_maxFps=60
+ cl_showGameMetrics=false
+-cl_maxFps=60
+ sfx_musicVolume=0.5
+ sfx_soundVolume=0.5
+-gfx_resolutionWidth=1536
+-gfx_reduceFramesWhenNotFocused=true
++gfx_antiAliasing=false
++gfx_colorInterpolation=false
+ gfx_displayMode=WINDOWED
++gfx_enableResolutionScale=true
+ gfx_graphicQuality=LOW
+-gfx_resolutionHeight=764
+-gfx_enableResolutionScale=true
+-gfx_colorInterpolation=false
+-gfx_antiAliasing=false
++gfx_reduceFramesWhenNotFocused=true
+ gfx_renderDynamicShadows=false
+-input_mouseSensitivity=1.0
++gfx_resolutionHeight=764
++gfx_resolutionWidth=1536
++input_gamepadAxisDeadzone=0.3
++input_gamepadStickDeadzone=0.15
+ input_gamepadSupport=false
+ input_gamepadTriggerDeadzone=0.1
+-input_gamepadStickDeadzone=0.15
+-input_gamepadAxisDeadzone=0.3
++input_mouseSensitivity=1.0
++dbg_debugEnabled=false
++dbg_renderBoundingBoxes=false
++dbg_renderCollisionBoxes=false
+ dbg_renderDebugMouse=false
++dbg_renderEntityNames=false
++dbg_renderGuiComponentBoundingBoxes=false
++dbg_renderHitBoxes=false
+ dbg_showMouseTargetMetric=true
+ dbg_showTilesMetric=false
+-dbg_renderEntityNames=false
+-dbg_renderBoundingBoxes=false
+-dbg_renderCollisionBoxes=false
+-dbg_renderHitBoxes=false
+-dbg_debugEnabled=false
+-dbg_renderGuiComponentBoundingBoxes=false
+ dbg_trackRenderTimes=false
+Index: game.log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/game.log b/game.log
+--- a/game.log	(revision c103717fe6a6d2decc26e479bb0d3f2666d4ab67)
++++ b/game.log	(date 1689850267235)
+@@ -1,0 +1,84 @@
++Len 16, 2023 8:17:04 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++Len 16, 2023 8:25:26 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++Len 16, 2023 8:27:49 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++Len 16, 2023 8:32:39 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++Len 16, 2023 8:37:01 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++Len 16, 2023 8:41:16 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++Len 17, 2023 7:22:17 LK de.gurkenlabs.litiengine.DefaultUncaughtExceptionHandler uncaughtException
++SEVERE: Game crashed! :(
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>distributionBase=GRADLE_USER_HOME\ndistributionPath=wrapper/dists\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.0.2-bin.zip\nnetworkTimeout=10000\nzipStoreBase=GRADLE_USER_HOME\nzipStorePath=wrapper/dists\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision c103717fe6a6d2decc26e479bb0d3f2666d4ab67)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1689850267241)
+@@ -1,6 +1,6 @@
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-8.0.2-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
+ networkTimeout=10000
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+Index: crash.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/crash.txt b/crash.txt
+new file mode 100644
+--- /dev/null	(date 1689850267245)
++++ b/crash.txt	(date 1689850267245)
+@@ -0,0 +1,26 @@
++Mon Jul 17 19:22:17 MUT 2023 main threw an exception:
++java.lang.NullPointerException
++	at java.base/java.util.zip.InflaterInputStream.<init>(InflaterInputStream.java:84)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:77)
++	at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.getResourceBundle(ResourceBundle.java:230)
++	at de.gurkenlabs.litiengine.resources.ResourceBundle.load(ResourceBundle.java:88)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:173)
++	at de.gurkenlabs.litiengine.resources.Resources.load(Resources.java:160)
++	at com.litiengine.Adventure.Program.main(Program.java:22)
++
++====Runtime Information====
++Operating System: Mac OS X
++	Architecture: aarch64
++	Version: 13.0.1
++Memory:
++	Max heap size: 2,0 GiB
++	Current heap size: 130,0 MiB
++	Heap used: 76,7 MiB
++	Free heap: 53,3 MiB
++Java Version: Java(TM) SE Runtime Environment 18.0.1.1+2-6 
++	Vendor: Oracle Corporation
++Uptime: PT2.93S
++Screens: 1
++	Screen 0: 1440x900@60hz
++
+Index: gradlew.bat
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gradlew.bat b/gradlew.bat
+new file mode 100644
+--- /dev/null	(date 1689850267249)
++++ b/gradlew.bat	(date 1689850267249)
+@@ -0,0 +1,92 @@
++@rem
++@rem Copyright 2015 the original author or authors.
++@rem
++@rem Licensed under the Apache License, Version 2.0 (the "License");
++@rem you may not use this file except in compliance with the License.
++@rem You may obtain a copy of the License at
++@rem
++@rem      https://www.apache.org/licenses/LICENSE-2.0
++@rem
++@rem Unless required by applicable law or agreed to in writing, software
++@rem distributed under the License is distributed on an "AS IS" BASIS,
++@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++@rem See the License for the specific language governing permissions and
++@rem limitations under the License.
++@rem
++
++@if "%DEBUG%"=="" @echo off
++@rem ##########################################################################
++@rem
++@rem  Gradle startup script for Windows
++@rem
++@rem ##########################################################################
++
++@rem Set local scope for the variables with windows NT shell
++if "%OS%"=="Windows_NT" setlocal
++
++set DIRNAME=%~dp0
++if "%DIRNAME%"=="" set DIRNAME=.
++@rem This is normally unused
++set APP_BASE_NAME=%~n0
++set APP_HOME=%DIRNAME%
++
++@rem Resolve any "." and ".." in APP_HOME to make it shorter.
++for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
++
++@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
++set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
++
++@rem Find java.exe
++if defined JAVA_HOME goto findJavaFromJavaHome
++
++set JAVA_EXE=java.exe
++%JAVA_EXE% -version >NUL 2>&1
++if %ERRORLEVEL% equ 0 goto execute
++
++echo.
++echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
++echo.
++echo Please set the JAVA_HOME variable in your environment to match the
++echo location of your Java installation.
++
++goto fail
++
++:findJavaFromJavaHome
++set JAVA_HOME=%JAVA_HOME:"=%
++set JAVA_EXE=%JAVA_HOME%/bin/java.exe
++
++if exist "%JAVA_EXE%" goto execute
++
++echo.
++echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
++echo.
++echo Please set the JAVA_HOME variable in your environment to match the
++echo location of your Java installation.
++
++goto fail
++
++:execute
++@rem Setup the command line
++
++set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
++
++
++@rem Execute Gradle
++"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
++
++:end
++@rem End local scope for the variables with windows NT shell
++if %ERRORLEVEL% equ 0 goto mainEnd
++
++:fail
++rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
++rem the _cmd.exe /c_ return code!
++set EXIT_CODE=%ERRORLEVEL%
++if %EXIT_CODE% equ 0 set EXIT_CODE=1
++if not ""=="%GRADLE_EXIT_CONSOLE%" exit %EXIT_CODE%
++exit /b %EXIT_CODE%
++
++:mainEnd
++if "%OS%"=="Windows_NT" endlocal
++
++:omega
+Index: .gradle/buildOutputCleanup/cache.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Tue Jul 11 20:37:48 MUT 2023\ngradle.version=8.0.2\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/buildOutputCleanup/cache.properties b/.gradle/buildOutputCleanup/cache.properties
+--- a/.gradle/buildOutputCleanup/cache.properties	(revision c103717fe6a6d2decc26e479bb0d3f2666d4ab67)
++++ b/.gradle/buildOutputCleanup/cache.properties	(date 1689850267253)
+@@ -1,2 +1,2 @@
+-#Tue Jul 11 20:37:48 MUT 2023
+-gradle.version=8.0.2
++#Thu Jul 13 16:06:27 MUT 2023
++gradle.version=8.0
+diff --git a/src/com/litiengine/Adventure/game.litidata.tmx b/src/com/litiengine/Adventure/game.litidata.tmx
+new file mode 100644
+diff --git a/game.log.1 b/game.log.1
+new file mode 100644
