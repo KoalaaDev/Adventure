@@ -1,12 +1,15 @@
-package com.litiengine.Adventure.entity;
+package com.litiengine.Adventure.entities;
 import com.litiengine.Adventure.abilities.Jump;
+import com.litiengine.Adventure.hotbar.Hotbar;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
+import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.physics.Collision;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 
@@ -15,7 +18,9 @@ public abstract class Player extends Creature {
     protected final Jump jump;
     protected int consecutiveJumps;
     public static final int MAX_ADDITIONAL_JUMPS = 1;
-
+    public final Hotbar hotbar = new Hotbar(this);
+    public int healthLastInstance = 100;
+    
     protected Player(String spriteName) {
         super(spriteName);
         this.jump = new Jump(this);
@@ -55,6 +60,11 @@ public abstract class Player extends Creature {
         }
         return false;
     }
+
+    protected Point2D getSpawnPointPos(){
+        return this.getEnvironment().getSpawnpoints("player").iterator().next().getCenter();
+    }
+    
 
 }
 

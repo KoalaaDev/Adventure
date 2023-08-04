@@ -19,7 +19,7 @@ public class Program {
     //Game.audio().playMusic(Resources.sounds().get("audio/looping-overcome-atmanan.mp3")); // background music
 
     Game.init(args);
-    GameManager.start();
+    
     //set the icon
     Game.window().setIcon(Resources.images().get("images/windowlogo.png"));
     Game.graphics().setBaseRenderScale(1f);
@@ -30,6 +30,7 @@ public class Program {
 
     // load the first level (resources for the map were implicitly loaded from the game file)
     Game.world().loadEnvironment("map1");
+    GameManager.start();
     
     Game.start();
   }

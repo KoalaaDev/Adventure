@@ -5,15 +5,21 @@ import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.PositionLockCamera;
 
-import com.litiengine.Adventure.entity.Player;
-import com.litiengine.Adventure.entity.Wizard;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.litiengine.Adventure.entities.IInteractEntity;
+import com.litiengine.Adventure.entities.Player;
+import com.litiengine.Adventure.entities.Wizard;
 
 public final class GameManager {
+  public static final Set<IInteractEntity> interactEntities = new HashSet<>();
   private GameManager() {
   }
   
   public static void start(){
     Player player = getCharacterClass("Wizard");
+    Game.world().environment().add(player);
     Camera camera = new PositionLockCamera(player);
     camera.setClampToMap(true);
     Game.world().setCamera(camera);
@@ -23,12 +29,13 @@ public final class GameManager {
 
       // spawn the player instance on the spawn point with the name "enter"
       Spawnpoint enter = e.getSpawnpoint("enter");
+      player.setLocation(enter.getCenter());
       // print a warning if the spawn point could not be found
       if (enter == null) {
         System.out.println("No spawn point with the name \"spawn\" found.");
       }
       if (enter != null) {
-        enter.spawn(player);
+        
       }
     });
   }
@@ -40,5 +47,9 @@ public final class GameManager {
         return Wizard.create();
     }
     
+  }
+
+  public static Set<IInteractEntity> getInteractables(){
+    return interactEntities;
   }
 }
