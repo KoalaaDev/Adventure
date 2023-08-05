@@ -5,16 +5,19 @@ import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.PositionLockCamera;
 
+import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
 import com.litiengine.Adventure.entities.Wizard;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 public final class GameManager {
   public static final Set<IInteractEntity> interactEntities = new HashSet<>();
-  private GameManager() {
+  public static Font minecraft = Resources.fonts().get("images/Minecraft.ttf");
+  private void Gamemanager(){
   }
   
   public static void start(){

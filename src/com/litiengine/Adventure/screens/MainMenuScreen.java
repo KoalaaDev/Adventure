@@ -6,10 +6,7 @@ import de.gurkenlabs.litiengine.gui.ImageComponent;
 import de.gurkenlabs.litiengine.gui.Menu;
 import de.gurkenlabs.litiengine.gui.screens.Screen;
 import de.gurkenlabs.litiengine.resources.Resources;
-import de.gurkenlabs.litiengine.resources.SpritesheetResource;
 import de.gurkenlabs.litiengine.util.Imaging;
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class MainMenuScreen extends Screen{
@@ -31,7 +28,7 @@ public class MainMenuScreen extends Screen{
     protected void initializeComponents(){
         super.initializeComponents();
         final BufferedImage buttonImg = Imaging.scale(Resources.images().get("images/menu_item.png"), .5f);
-        final Spritesheet button = new Spritesheet(buttonImg, "menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
+        final Spritesheet button = new Spritesheet(buttonImg, "images/menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
         final String[] items = { "Neww Game", "Quit" };
         bkgr = new ImageComponent(0, 0, Resources.images().get("image/menu.png"));
         menu = new Menu((Game.window().getWidth() - buttonImg.getWidth()) / 2d,
@@ -40,8 +37,8 @@ public class MainMenuScreen extends Screen{
 
         menu.onChange(index -> {
             if(index == 0){
-                Game.world().loadEnvironment("map1");
-                Game.start();
+               suspend();
+               Game.screens().display("inGameScreen");
             }
             if(index == 1){
                 System.exit(0);
