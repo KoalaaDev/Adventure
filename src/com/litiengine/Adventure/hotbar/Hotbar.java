@@ -113,7 +113,7 @@ public class Hotbar implements IRenderable {
 
   @Override
   public void render(Graphics2D graphics) {
-    final BufferedImage slot = Resources.images().get("slot.png");
+    final BufferedImage slot = Resources.images().get("images/slot.png");
     BufferedImage image = new BufferedImage(slot.getWidth() * size(), slot.getHeight(), slot.getType());
     final Graphics2D g = image.createGraphics();
 
@@ -122,8 +122,8 @@ public class Hotbar implements IRenderable {
       final int y = 0;
       g.drawImage(slot, x, y, null);
       if (i == selectedSlot) {
-        g.drawImage(Resources.images().get("sel_slot.png"), x + (slot.getWidth() - Resources.images().get("sel_slot.png").getWidth()) / 2,
-            y + (slot.getHeight() - Resources.images().get("sel_slot.png").getHeight()) / 2, null);
+        g.drawImage(Resources.images().get("images/sel_slot.png"), x + (slot.getWidth() - Resources.images().get("images/sel_slot.png").getWidth()) / 2,
+            y + (slot.getHeight() - Resources.images().get("images/sel_slot.png").getHeight()) / 2, null);
       }
       if (items[i] != null) {
         g.drawImage(items[i].getImage(), x + (slot.getWidth() - items[i].getImage().getWidth()) / 2,
