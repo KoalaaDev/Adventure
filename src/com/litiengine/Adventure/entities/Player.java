@@ -61,7 +61,7 @@ public abstract class Player extends Creature {
         return false;
     }
 
-    protected Point2D getSpawnPointPos(){
+    public final Point2D getSpawnPointPos(){
         return this.getEnvironment().getSpawnpoints("player").iterator().next().getCenter();
     }
     

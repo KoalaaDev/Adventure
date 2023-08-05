@@ -8,6 +8,7 @@ import de.gurkenlabs.litiengine.graphics.PositionLockCamera;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.awt.geom.Point2D;
 
 import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
@@ -22,25 +23,18 @@ public final class GameManager {
   
   public static void start(){
     Player player = getCharacterClass("Wizard");
+    Game.world().setGravity(200);
     Game.world().environment().add(player);
+    Point2D spawnpoint = player.getSpawnPointPos();
+    player.setLocation(spawnpoint.getX(), spawnpoint.getY()-20);
+    player.setScaling(true);
+
     Camera camera = new PositionLockCamera(player);
     camera.setClampToMap(true);
     Game.world().setCamera(camera);
     // zoom the camera in a bit
     Game.world().setCamera(camera);
-    Game.world().onLoaded(e -> {
 
-      // spawn the player instance on the spawn point with the name "enter"
-      Spawnpoint enter = e.getSpawnpoint("enter");
-      player.setLocation(enter.getCenter());
-      // print a warning if the spawn point could not be found
-      if (enter == null) {
-        System.out.println("No spawn point with the name \"spawn\" found.");
-      }
-      if (enter != null) {
-        
-      }
-    });
   }
   public static Player getCharacterClass(String characterClass){
     switch(characterClass){
