@@ -17,6 +17,7 @@
       <property name="collisionValign" value="DOWN"/>
       <property name="spawnDirection" value="DOWN"/>
       <property name="spawnPivot" value="DIMENSION_CENTER"/>
+      <property name="tags" value="player"/>
      </properties>
     </object>
    </objectgroup>
@@ -327,6 +328,7 @@
       <property name="collisionValign" value="DOWN"/>
       <property name="spawnDirection" value="DOWN"/>
       <property name="spawnPivot" value="DIMENSION_CENTER"/>
+      <property name="tags" value="player"/>
      </properties>
     </object>
     <object id="28" type="TRIGGER" x="1120" y="640" width="576" height="160">
@@ -337,13 +339,22 @@
       <property name="triggerActivation" value="COLLISION"/>
      </properties>
     </object>
-    <object id="29" name="Water" type="COLLISIONBOX" x="480" y="1088" width="448" height="32">
+    <object id="29" name="Water" type="COLLISIONBOX" x="480" y="1056" width="448" height="64">
      <properties>
       <property name="collisionAlign" value="CENTER"/>
       <property name="collisionType" value="STATIC"/>
       <property name="collisionValign" value="DOWN"/>
-      <property name="isDeadly" value="True"/>
       <property name="tags" value="deadly"/>
+     </properties>
+    </object>
+    <object id="30" type="CREATURE" x="6" y="432" width="32" height="32">
+     <properties>
+      <property name="addShadow" type="bool" value="true"/>
+      <property name="collision" type="bool" value="true"/>
+      <property name="collisionboxHeight" type="float" value="12.8"/>
+      <property name="collisionboxWidth" type="float" value="12.8"/>
+      <property name="indestructible" type="bool" value="false"/>
+      <property name="spritesheetName" value="wizard"/>
      </properties>
     </object>
    </objectgroup>
@@ -367,9 +378,6 @@
   </sprite>
   <sprite width="32" height="32" imageformat="PNG" name="wizard-idle-right">
    <image>iVBORw0KGgoAAAANSUhEUgAAAIAAAAAgCAYAAADaInAlAAACy0lEQVR4Xu2YMU4DQQxF9wI0iIqCBgnRQEdJgZBAoqVFcAGOQEFPScdZ6Ci5DBeIgryKI+dnvDu78dgDu5a+khAy74/ne7PQNAPr4GB/mRL+3lz/sE4OT5bvZ29bejp/mEPgVDh4rgNIAaDDxgCwPIzgxl0b0MTywweQDESGILoBNfCjet9WlwH6OauUkS6+RwNq4Id60CYgpRJGohtQA19jFx9Agr/eHW3p5+NelbWR0AY0dfCRq8nUAycfD78vABwCKzNhDVhVJH9M/3f2IC95mmiz2lRgQ3YxFNIAUZF89wHMOfihAZBBQF5fuTcgUbvwca3cyjmH3P5n9yEFxMVYN5cXrW5P91rJxrw8P7ZisBQytQppQKK6POTwh3Jz9j2EP8gLw1PiQ0Vh6kkyAMjoq9AGiMrxkcvPDWCKh2uxSg/gRtEHF4vFhr6/PtXL4FhYDQ1IHTyyc/n4mT4+Dl3EACZLCwCCZQBwjZzCTXs3QDt4eo7cXD4KmTml9d96ANXSDHAI6BHfszSg8a0bgKFjjeWP8ZAqjY9cycc1RhctJi9jNA0yAGxIXgLptaWJ0AY09fKLDyAevgwBBgDlMQHFG7CqSD6egesAIlya4OfYGJZVANCDawNW1RWAknzcu+wB8lEm/e8y4BGALr5LA5ptD1oAURZ8ZHv3vy00gXfICLY0gGzvBkydvy5e7Pr4qpUMgTYFVnBswpQCSIUePPe/UTIAfSGwvAmiqjGAzEeuNZ8qcv8bRYvif73oLjj197C1gZoCKPnILnUAGt9j/+uKDABVJJ9DkOJ7HYDG99h/WzgJlEB8ZJUwEN2AqfPXAZDfh/L7UaqEgRoCOFk+g+Why+eoEiZqCeAk+bQgpwthKVkHIDqAU+cPDgDJ0sBQvnUD/hqfZMZPpS9HVgZmfixfTR++RlkZmPmBfHnHiUB8jaL3dzUx88vxfwEPxsMrNrPr6gAAAABJRU5ErkJggg==</image>
-  </sprite>
-  <sprite width="64" height="64" imageformat="PNG" name="wizard-walk-right">
-   <image>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</image>
   </sprite>
  </spriteSheets>
  <tilesets>
