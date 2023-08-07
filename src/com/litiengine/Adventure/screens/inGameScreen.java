@@ -27,9 +27,11 @@ public class inGameScreen extends GameScreen {
     g.drawImage(Resources.images().get("coin.png"), 10, 10, 50, 50, null);
     g.setColor(Color.YELLOW);
     g.setFont(new Font("TimesRoman", Font.PLAIN, 40)); 
-    g.drawString(String.valueOf(2000), 80, 50);
-    // Player.getInstance().healthBar.render(g);
+    g.drawString(String.valueOf(Wizard.create().getMoney()), 80, 50);
+    Wizard.create().healthBar.render(g);
     Wizard.create().hotbar.render(g);
 
   }
+
+  
 }

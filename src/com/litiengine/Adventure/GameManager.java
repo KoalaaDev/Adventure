@@ -28,7 +28,10 @@ public final class GameManager {
     Point2D spawnpoint = player.getSpawnPointPos();
     player.setLocation(spawnpoint.getX(), spawnpoint.getY()-20);
     player.setScaling(true);
-
+    player.onDeath(event -> {
+      player.setVisible(false);
+      player.setLocation(spawnpoint.getX(), spawnpoint.getY()-20);
+  });
     Camera camera = new PositionLockCamera(player);
     camera.setClampToMap(true);
     Game.world().setCamera(camera);

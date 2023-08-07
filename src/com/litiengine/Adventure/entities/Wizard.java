@@ -16,30 +16,29 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 
 
 @EntityInfo(width = 80, height = 100)
+@CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 150)
 @CollisionInfo(collision = true, collisionBoxWidth = 60, collisionBoxHeight = 80)
 public final class Wizard extends Player implements IUpdateable{
 
+    private static final Wizard instance = new Wizard();
+    
     public static Wizard create() {
         
-        return new Wizard();
+        return instance;
     }
 
     private Wizard() {
         super("wizard");
-        Game.world().onLoaded(e -> {
-            Point2D spawnpoint = this.getSpawnPointPos();
-            this.setLocation(spawnpoint.getX(), spawnpoint.getY());
-        });
-        onDeath(event -> {
-            setVisible(false);
-            // remove the player from the world
-            Point2D spawnpoint = this.getSpawnPointPos();
-            setLocation(spawnpoint);
-            // respawn the player at the spawnpoint enter
-            resurrect();
-            setVisible(true);
-        });
+        // onDeath(event -> {
+        //     instance.setVisible(false);
+        //     // remove the player from the world
+        //     // Point2D spawnpoint = this.getSpawnPointPos();
+        //     // instance.setLocation(spawnpoint);
+        //     // // respawn the player at the spawnpoint enter
+        //     // instance.resurrect();
+        //     // instance.setVisible(true);
+        // });
     }
     
 
@@ -50,7 +49,7 @@ public final class Wizard extends Player implements IUpdateable{
         }
         if (this.colllideDeadly()){
             //respawn player
-            this.die();
+            instance.die();
         }
     }
     @Override

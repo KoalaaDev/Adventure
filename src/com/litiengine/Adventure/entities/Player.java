@@ -1,12 +1,12 @@
 package com.litiengine.Adventure.entities;
 import com.litiengine.Adventure.abilities.Jump;
 import com.litiengine.Adventure.hotbar.Hotbar;
+import com.litiengine.Adventure.hp.PlayerHealthBar;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
-import de.gurkenlabs.litiengine.entities.Spawnpoint;
 import de.gurkenlabs.litiengine.physics.Collision;
 
 import java.awt.geom.Point2D;
@@ -17,13 +17,17 @@ public abstract class Player extends Creature {
     // create a player class for a dungeon crawler
     protected final Jump jump;
     protected int consecutiveJumps;
+    private int money = 0, lvl = 1;
     public static final int MAX_ADDITIONAL_JUMPS = 1;
     public final Hotbar hotbar = new Hotbar(this);
+    public final PlayerHealthBar healthBar = new PlayerHealthBar(this);
+    
     public int healthLastInstance = 100;
     
     protected Player(String spriteName) {
         super(spriteName);
         this.jump = new Jump(this);
+        
     }
 
     @Action(description = "This performs the jump ability for the player's entity.")
@@ -64,6 +68,15 @@ public abstract class Player extends Creature {
     public final Point2D getSpawnPointPos(){
         return this.getEnvironment().getSpawnpoints("player").iterator().next().getCenter();
     }
+
+    public final int getMoney(){
+        return money;
+    }
+
+    public final int getLvl(){
+        return lvl;
+    }
+
     
 
 }

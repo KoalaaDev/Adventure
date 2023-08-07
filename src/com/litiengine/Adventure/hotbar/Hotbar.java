@@ -116,7 +116,6 @@ public class Hotbar implements IRenderable {
     final BufferedImage slot = Resources.images().get("images/slot.png");
     BufferedImage image = new BufferedImage(slot.getWidth() * size(), slot.getHeight(), slot.getType());
     final Graphics2D g = image.createGraphics();
-
     for (int i = 0; i < size(); ++i) {
       final int x = i * slot.getWidth();
       final int y = 0;
