@@ -30,8 +30,7 @@ public TitleScreen(){
     @Override protected void initializeComponents() {
         super.initializeComponents();
         BufferedImage button = Resources.images().get("images/title.jpg.png");
-        startGame = new ImageComponent((Game.window().getWidth()) , (Game.window().getHeight()) ,
-                button);
+        startGame = new ImageComponent((Game.window().getWidth()) , (Game.window().getHeight()) , button);
         startGame.setText("Start Game");
         startGame.onClicked(event -> {
             suspend();

@@ -30,7 +30,7 @@ public class MainMenuScreen extends Screen{
         final BufferedImage buttonImg = Imaging.scale(Resources.images().get("images/menu_item.png"), .5f);
         final Spritesheet button = new Spritesheet(buttonImg, "images/menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
         final String[] items = { "Neww Game", "Quit" };
-        bkgr = new ImageComponent(0, 0, Resources.images().get("image/menu.png"));
+        bkgr = new ImageComponent(0, 0, Resources.images().get("images/menu.png"));
         menu = new Menu((Game.window().getWidth() - buttonImg.getWidth()) / 2d,
                 (Game.window().getHeight() - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
                 button, items);
@@ -38,7 +38,7 @@ public class MainMenuScreen extends Screen{
         menu.onChange(index -> {
             if(index == 0){
                suspend();
-               Game.screens().display("inGameScreen");
+               Game.screens().display("INGAME-SCREEN");
             }
             if(index == 1){
                 System.exit(0);

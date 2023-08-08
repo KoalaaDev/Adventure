@@ -30,7 +30,7 @@ public class Program {
     // add the title screen
     Game.screens().add(new TitleScreen());
     // add the screens that will help you organize the different states of your game
-   // Game.screens().add(new MainMenuScreen());
+    Game.screens().add(new MainMenuScreen());
     Game.screens().add(new inGameScreen());
 
     // load the first level (resources for the map were implicitly loaded from the game file)
