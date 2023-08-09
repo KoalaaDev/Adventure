@@ -21,7 +21,8 @@ public class MainMenuScreen extends Screen{
     @Override
     public void prepare(){
         super.prepare();
-        Game.audio().playMusic(Resources.sounds().get("audio/looping-overcome-atmanan.mp3"));
+
+       // Game.audio().playMusic(Resources.sounds().get("audio/looping-overcome-atmanan.mp3"));
     }
 
     @Override
@@ -29,7 +30,7 @@ public class MainMenuScreen extends Screen{
         super.initializeComponents();
         final BufferedImage buttonImg = Imaging.scale(Resources.images().get("images/menu_item.png"), .5f);
         final Spritesheet button = new Spritesheet(buttonImg, "images/menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
-        final String[] items = { "Neww Game", "Quit" };
+        final String[] items = { "New Game", "Quit" };
         bkgr = new ImageComponent(0, 0, Resources.images().get("images/menu.png"));
         menu = new Menu((Game.window().getWidth() - buttonImg.getWidth()) / 2d,
                 (Game.window().getHeight() - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
