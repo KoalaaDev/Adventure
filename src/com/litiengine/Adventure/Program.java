@@ -1,5 +1,6 @@
 package com.litiengine.Adventure;
 
+import com.litiengine.Adventure.screens.CharacterSelectScreen;
 import com.litiengine.Adventure.screens.MainMenuScreen;
 import com.litiengine.Adventure.screens.TitleScreen;
 import com.litiengine.Adventure.screens.inGameScreen;
@@ -31,6 +32,7 @@ public class Program {
     Game.screens().add(new TitleScreen());
     // add the screens that will help you organize the different states of your game
     Game.screens().add(new MainMenuScreen());
+    Game.screens().add(new CharacterSelectScreen());
     Game.screens().add(new inGameScreen());
 
     // load the first level (resources for the map were implicitly loaded from the game file)

@@ -40,16 +40,13 @@ public class MainMenuScreen extends Screen{
         menu.onChange(index -> {
             if(index == 0){
                suspend();
-               Game.screens().display("INGAME-SCREEN");
+               Game.screens().display("CharacterScreen");
             }
             if(index == 1){
                 System.exit(0);
             }
         });
-        for (ImageComponent cell : menu.getCellComponents()) {
 
-
-        }
         getComponents().add(bkgr);
         getComponents().add(menu);
 

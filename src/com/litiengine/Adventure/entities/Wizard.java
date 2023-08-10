@@ -28,7 +28,7 @@ public final class Wizard extends Player implements IUpdateable{
         return instance;
     }
 
-    private Wizard() {
+    public Wizard() {
         super("wizard");
         // onDeath(event -> {
         //     instance.setVisible(false);

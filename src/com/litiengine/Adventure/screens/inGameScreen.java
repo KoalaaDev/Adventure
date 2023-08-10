@@ -21,17 +21,17 @@ public class inGameScreen extends GameScreen {
     super(NAME);
   }
 
-  @Override
+ /* @Override
   public void render(Graphics2D g) {
     super.render(g);
     g.drawImage(Resources.images().get("coin.png"), 10, 10, 50, 50, null);
     g.setColor(Color.YELLOW);
     g.setFont(new Font("TimesRoman", Font.PLAIN, 40)); 
-    g.drawString(String.valueOf(Wizard.create().getMoney()), 80, 50);
-    Wizard.create().healthBar.render(g);
-    Wizard.create().hotbar.render(g);
+   //g.drawString(String.valueOf(Wizard.create().getMoney()), 80, 50);
+   // Wizard.create().healthBar.render(g);
+    //Wizard.create().hotbar.render(g);
 
   }
-
+*/
   
 }
