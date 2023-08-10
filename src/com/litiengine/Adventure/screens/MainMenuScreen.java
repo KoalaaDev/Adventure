@@ -32,8 +32,8 @@ public class MainMenuScreen extends Screen{
         final Spritesheet button = new Spritesheet(buttonImg, "images/menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
         final String[] items = { "New Game", "Quit" };
         bkgr = new ImageComponent(0, 0, Resources.images().get("images/menu.png"));
-        menu = new Menu((Game.window().getWidth() - buttonImg.getWidth()) / 2d,
-                (Game.window().getHeight() - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
+        menu = new Menu((Game.window().getWidth()+1000 - buttonImg.getWidth()) / 2d,
+                (Game.window().getHeight()+700 - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
                 button, items);
 
         menu.onChange(index -> {
