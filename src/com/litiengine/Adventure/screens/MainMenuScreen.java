@@ -35,6 +35,7 @@ public class MainMenuScreen extends Screen{
         menu = new Menu((Game.window().getWidth()+1000 - buttonImg.getWidth()) / 2d,
                 (Game.window().getHeight()+700 - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
                 button, items);
+        menu.setHoverSound(Resources.sounds().get("audio/click.mp3"));
 
         menu.onChange(index -> {
             if(index == 0){
