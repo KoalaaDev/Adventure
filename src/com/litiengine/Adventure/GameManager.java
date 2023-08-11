@@ -13,6 +13,8 @@ import java.awt.geom.Point2D;
 import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
 import com.litiengine.Adventure.entities.Wizard;
+import com.litiengine.Adventure.utilities.GeometryUtilities;
+
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public final class GameManager {
@@ -23,10 +25,9 @@ public final class GameManager {
   
   public static void start(){
     Player player = getCharacterClass("Wizard");
-    Game.world().setGravity(200);
     Game.world().environment().add(player);
-    Point2D spawnpoint = player.getSpawnPointPos();
-    player.setLocation(spawnpoint.getX(), spawnpoint.getY()-20);
+    Spawnpoint spawnpoint = player.getSpawnPointPos();
+    GeometryUtilities.setCenter(player, spawnpoint.getCenter());
     player.setScaling(true);
     player.onDeath(event -> {
       player.setVisible(false);

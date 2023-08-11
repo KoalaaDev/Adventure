@@ -33,4 +33,7 @@ public class GeometryUtilities {
 		entity.setLocation(getCenterLocation(entity));
 	}
 
+	public static Point2D transpose(Point2D point, int x, int y){
+		return new Point2D.Double(point.getX() + x, point.getY() + y);
+	}
 }

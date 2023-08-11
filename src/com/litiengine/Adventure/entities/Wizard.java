@@ -1,10 +1,16 @@
 package com.litiengine.Adventure.entities;
 import java.awt.geom.Point2D;
 
+import com.litiengine.Adventure.abilities.FireballAbility;
+import com.litiengine.Adventure.inputs.PlayerMovementController;
+
+import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
 import de.gurkenlabs.litiengine.input.PlatformingMovementController;
+import de.gurkenlabs.litiengine.physics.GravityForce;
 import de.gurkenlabs.litiengine.physics.IMovementController;
+import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.AnimationInfo;
 import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.CombatInfo;
@@ -22,6 +28,7 @@ import de.gurkenlabs.litiengine.entities.MovementInfo;
 public final class Wizard extends Player implements IUpdateable{
 
     private static final Wizard instance = new Wizard();
+    private final FireballAbility range = new FireballAbility(this);
     
     public static Wizard create() {
         
@@ -30,6 +37,9 @@ public final class Wizard extends Player implements IUpdateable{
 
     public Wizard() {
         super("wizard");
+        addController(new PlayerMovementController(this));
+        this.name = "Wizard";
+        
         // onDeath(event -> {
         //     instance.setVisible(false);
         //     // remove the player from the world
@@ -41,7 +51,6 @@ public final class Wizard extends Player implements IUpdateable{
         // });
     }
     
-
     @Override
     public void update() {
         if (this.isTouchingGround()) {
@@ -52,10 +61,12 @@ public final class Wizard extends Player implements IUpdateable{
             instance.die();
         }
     }
-    @Override
-    protected IMovementController createMovementController() {
-        // setup movement controller
-        return new PlatformingMovementController<>(this);
-  }
 
+    public void attack(){
+        if(range.hasEnded()){
+            range.cast();
+            cooldown = 0;
+        }
+        
+    }
 }
