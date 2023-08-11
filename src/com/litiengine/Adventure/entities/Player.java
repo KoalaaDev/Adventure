@@ -26,27 +26,27 @@ public abstract class Player extends Creature {
     public static final int MAX_ADDITIONAL_JUMPS = 1;
     public final Hotbar hotbar = new Hotbar(this);
     public final PlayerHealthBar healthBar = new PlayerHealthBar(this);
+    public boolean onGround = false;
     public int updatetimer = 0;
     public int healthLastInstance = 100;
     public int cooldown = 0;
     protected Player(String spriteName) {
         super(spriteName);
-        GravityForce force = new GravityForce(this, 100, Direction.DOWN);
-        force.setCancelOnCollision(true);
+        
         onMoved(e -> {
+            // Gravity system for player which can easily be adjusted by setting the strength
+            GravityForce force = new GravityForce(this, 100, Direction.DOWN);
+            force.setIdentifier("Gravity"); // add an identifier for later
+            force.setCancelOnCollision(true);
             if (updatetimer == 0) {
 				Game.audio().playSound(Resources.sounds().get("audio/step.wav"));
 				updatetimer = 20;
 			}
-            if(!this.isTouchingGround()){ // if player isnt on the ground, apply a force
-                force.setStrength(100);
+            // we apply 2 checks, one to check if the player is not on the ground, the other to only apply the force once
+            if(!this.isTouchingGround() && this.movement().getForce("Gravity") == null){
                 this.movement().apply(force);
-            }
-			// print all effects applied to the player
-            System.out.println(force.hasEnded());
-            System.out.println(this.movement().getActiveForces());
 
-            
+            }
         });
         this.jump = new Jump(this);
         
