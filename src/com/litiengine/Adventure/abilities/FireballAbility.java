@@ -29,9 +29,9 @@ public class FireballAbility extends Ability{
 		Game.audio().playSound(Resources.sounds().get("audio/fireball.mp3"), Fireball.instance());
 		// spawn the fireball depending on the direction of the player
 		if(player.getFacingDirection() == Direction.LEFT)
-			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), -100, 20));
+			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), -100, 100));
 		if(player.getFacingDirection() == Direction.RIGHT)
-			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), 100, 20));
+			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), 200, 100));
 		
 		return super.cast();
 	}
@@ -40,5 +40,8 @@ public class FireballAbility extends Ability{
 		return !Fireball.instance().isLoaded();
 	}
 
-
+	@Override
+	public boolean isActive(){
+		return !hasEnded();
+	}
 }

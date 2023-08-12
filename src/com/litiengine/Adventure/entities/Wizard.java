@@ -1,8 +1,10 @@
 package com.litiengine.Adventure.entities;
 import java.awt.geom.Point2D;
 
+import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.abilities.FireballAbility;
 import com.litiengine.Adventure.inputs.PlayerMovementController;
+import com.litiengine.Adventure.animations.EntityAnimationController;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
@@ -17,11 +19,14 @@ import de.gurkenlabs.litiengine.entities.CombatInfo;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
 import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.MovementInfo;
+import de.gurkenlabs.litiengine.graphics.animation.Animation;
+import de.gurkenlabs.litiengine.graphics.animation.CreatureAnimationController;
+import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 
 
 
 
-@EntityInfo(width = 80, height = 100)
+@EntityInfo(width = 192, height = 192)
 @CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 150)
 @CollisionInfo(collision = true, collisionBoxWidth = 60, collisionBoxHeight = 80)
@@ -52,6 +57,25 @@ public final class Wizard extends Player implements IUpdateable{
     }
     
     @Override
+    protected IEntityAnimationController<?> createAnimationController() {
+        IEntityAnimationController<?> controller = new CreatureAnimationController<>(this, true);
+        // Animation test = new Animation("wizard-walk-right", true, true)
+        controller.add(new Animation("wizard-walk-right", true, true));
+        controller.add(new Animation("wizard-idle-right", true, true));
+
+        controller.add(new Animation("wizard-attack-right", true, false));
+        controller.add(new Animation("wizard-jump-right", true, false));
+        controller.add(new Animation("wizard-death-right", true, true));
+        controller.addRule(x -> Wizard.create().isIdle(), x -> "wizard-idle-right");
+        controller.addRule(x -> !Wizard.create().isIdle(), x -> "wizard-walk-right");
+        controller.addRule(x -> Wizard.create().isDead(), x -> "wizard-death-right");
+        controller.addRule(x -> Wizard.create().range.isActive(), x -> "wizard-attack-right");
+        controller.addRule(x -> Wizard.create().jump.isActive(), x -> "wizard-jump-right");
+        
+        return controller;
+    }
+    
+    @Override
     public void update() {
         if (this.isTouchingGround()) {
             this.consecutiveJumps = 0;
@@ -60,6 +84,7 @@ public final class Wizard extends Player implements IUpdateable{
             //respawn player
             instance.die();
         }
+        // System.out.println(animations().getCurrentAnimationName());
     }
 
     public void attack(){

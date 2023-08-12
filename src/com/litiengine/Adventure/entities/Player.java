@@ -37,16 +37,24 @@ public abstract class Player extends Creature {
             // Gravity system for player which can easily be adjusted by setting the strength
             GravityForce force = new GravityForce(this, 100, Direction.DOWN);
             force.setIdentifier("Gravity"); // add an identifier for later
-            force.setCancelOnCollision(true);
-            if (updatetimer == 0) {
-				Game.audio().playSound(Resources.sounds().get("audio/step.wav"));
-				updatetimer = 20;
-			}
+            force.setCancelOnCollision(true); // the force ends whenever we collide
+            if (!isIdle() && Game.screens().current().getName().equals("INGAME-SCREEN") && this.isTouchingGround()){
+                if (updatetimer == 0 ) {
+                    Game.audio().playSound(Resources.sounds().get("audio/step.wav"));
+                    updatetimer = 20;
+			    }
+                updatetimer--;
+            }
+            
             // we apply 2 checks, one to check if the player is not on the ground, the other to only apply the force once
             if(!this.isTouchingGround() && this.movement().getForce("Gravity") == null){
                 this.movement().apply(force);
 
             }
+            if (isIdle() && updatetimer != 0) {
+                updatetimer = 0;
+            }
+            
         });
         this.jump = new Jump(this);
         
@@ -67,7 +75,7 @@ public abstract class Player extends Creature {
         // the idea of this ground check is to extend the current collision box by
         // one pixel and see if
         // a) it collides with any static collision box
-        Rectangle2D groundCheck = new Rectangle2D.Double(this.getCollisionBox().getX(), this.getCollisionBox().getY(), this.getCollisionBoxWidth(), this.getCollisionBoxHeight() + 5);
+        Rectangle2D groundCheck = new Rectangle2D.Double(this.getCollisionBox().getX(), this.getCollisionBox().getY(), this.getCollisionBoxWidth(), this.getCollisionBoxHeight() + 1);
 
         // b) it collides with the map's boundaries
         if (groundCheck.getMaxY() > Game.physics().getBounds().getMaxY()) {

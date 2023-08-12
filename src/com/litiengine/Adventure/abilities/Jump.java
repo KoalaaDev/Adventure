@@ -1,9 +1,6 @@
 package com.litiengine.Adventure.abilities;
 
 import java.util.Optional;
-import java.awt.geom.Rectangle2D;
-
-import com.litiengine.Adventure.utilities.GeometryUtilities;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
@@ -16,7 +13,6 @@ import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.EntityPivotType;
 import de.gurkenlabs.litiengine.entities.IMobileEntity;
-import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.Force;
 import de.gurkenlabs.litiengine.physics.GravityForce;
 

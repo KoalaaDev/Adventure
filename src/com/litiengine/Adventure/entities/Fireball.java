@@ -24,7 +24,7 @@ public class Fireball extends Creature implements IUpdateable {
     super("Fireball"); // Gets the fireball sprite
     this.setScaling(true);
     this.setAngle(Wizard.create().getAngle()); // set fireball direction
-    Game.physics().move(this, (int) this.getAngle(), 1000);
+    Game.physics().move(this, (int) this.getAngle(), 200); // distance sets length travelled
     moves = 0;
     onCollision(c -> { //collision logic
       c.getInvolvedEntities().forEach(e -> {
@@ -55,7 +55,7 @@ public class Fireball extends Creature implements IUpdateable {
 
   @Override
   public void update() {
-    if (!Game.physics().collides(this) && moves < 100) {
+    if (!Game.physics().collides(this) && moves < 50) {
       Game.physics().move(this, getFacingDirection(), 10); // move the fireball forward
       moves++;
     } else {
