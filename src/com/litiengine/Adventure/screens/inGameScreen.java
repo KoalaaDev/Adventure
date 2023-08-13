@@ -29,7 +29,6 @@ public class inGameScreen extends GameScreen {
     g.setFont(new Font("TimesRoman", Font.PLAIN, 40)); 
     g.drawString(String.valueOf(Wizard.create().getMoney()), 80, 50);
     Wizard.create().healthBar.render(g);
-    //Wizard.create().hotbar.render(g);
 
   }
 

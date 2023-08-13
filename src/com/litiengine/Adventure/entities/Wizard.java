@@ -1,5 +1,6 @@
 package com.litiengine.Adventure.entities;
 
+import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.abilities.FireballAbility;
 import com.litiengine.Adventure.inputs.PlayerMovementController;
 
@@ -28,7 +29,6 @@ public final class Wizard extends Player implements IUpdateable{
 
     private static final Wizard instance = new Wizard();
     private final FireballAbility range = new FireballAbility(this);
-    private boolean deathPlayed;
     public static Wizard create() {
         
         return instance;
@@ -39,14 +39,8 @@ public final class Wizard extends Player implements IUpdateable{
         addController(new PlayerMovementController(this));
         
         onDeath(event -> {
-            animations().play("wizard-death-right");
-            try{
-                wait(5000);
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
-            this.setVisible(false);
-             
+            Game.audio().playSound(Resources.sounds().get("audio/wizard-death.mp3"));
+            animations().play("wizard-death-right");             
             // remove the player from the world
             // Point2D spawnpoint = this.getSpawnPointPos();
             // instance.setLocation(spawnpoint);
@@ -54,6 +48,7 @@ public final class Wizard extends Player implements IUpdateable{
             // instance.resurrect();
             // instance.setVisible(true);
         });
+        
     }
     
     @Override
@@ -84,7 +79,12 @@ public final class Wizard extends Player implements IUpdateable{
             //respawn player
             this.die();
         }
-
+        if(animations().getCurrent().getName().equals("wizard-walk-right")&&isDead()){
+            this.setVisible(false);
+            Game.world().environment().remove(this);
+            
+        }
+            
 
         
     }
