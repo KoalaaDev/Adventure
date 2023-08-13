@@ -1,6 +1,5 @@
 package com.litiengine.Adventure.entities;
 import com.litiengine.Adventure.abilities.Jump;
-import com.litiengine.Adventure.hotbar.Hotbar;
 import com.litiengine.Adventure.hp.PlayerHealthBar;
 import com.litiengine.Adventure.inputs.PlayerMovementController;
 
@@ -21,10 +20,10 @@ public abstract class Player extends Creature {
     // create a base player class which can serve as a base for future implementation of new heroes
     public String name;
     protected final Jump jump;
+    
     protected int consecutiveJumps;
     private int money = 0, lvl = 1;
     public static final int MAX_ADDITIONAL_JUMPS = 1;
-    public final Hotbar hotbar = new Hotbar(this);
     public final PlayerHealthBar healthBar = new PlayerHealthBar(this);
     public boolean onGround = false;
     public int updatetimer = 0;
@@ -32,10 +31,9 @@ public abstract class Player extends Creature {
     public int cooldown = 0;
     protected Player(String spriteName) {
         super(spriteName);
-        
         onMoved(e -> {
             // Gravity system for player which can easily be adjusted by setting the strength
-            GravityForce force = new GravityForce(this, 100, Direction.DOWN);
+            GravityForce force = new GravityForce(this, 300, Direction.DOWN);
             force.setIdentifier("Gravity"); // add an identifier for later
             force.setCancelOnCollision(true); // the force ends whenever we collide
             if (!isIdle() && Game.screens().current().getName().equals("INGAME-SCREEN") && this.isTouchingGround()){
@@ -57,7 +55,6 @@ public abstract class Player extends Creature {
             
         });
         this.jump = new Jump(this);
-        
     }
 
     @Action(description = "This performs the jump ability for the player's entity.")

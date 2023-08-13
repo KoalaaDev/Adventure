@@ -21,14 +21,12 @@ public class Jump extends Ability {
 
   public Jump(Creature executor) {
     super(executor);
-
     this.addEffect(new JumpEffect(this));
   }
-
   private class JumpEffect extends ForceEffect {
 
     protected JumpEffect(Ability ability) {
-      super(ability, ability.getAttributes().value().get().intValue(), EffectTarget.EXECUTINGENTITY);
+      super(ability, 390, EffectTarget.EXECUTINGENTITY);
     }
 
     @Override
@@ -59,6 +57,7 @@ public class Jump extends Ability {
       CollisionBox box = opt.get();
       return box.getCollisionBox().getMaxY() <= this.getAbility().getExecutor().getCollisionBox().getMinY();
     }
+
 
   }
 }

@@ -29,10 +29,6 @@ public final class GameManager {
     Spawnpoint spawnpoint = player.getSpawnPointPos();
     GeometryUtilities.setCenter(player, spawnpoint.getCenter());
     player.setScaling(true);
-    player.onDeath(event -> {
-      player.setVisible(false);
-      player.setLocation(spawnpoint.getX(), spawnpoint.getY()-20);
-  });
     Camera camera = new PositionLockCamera(player);
     camera.setClampToMap(true);
     Game.world().setCamera(camera);

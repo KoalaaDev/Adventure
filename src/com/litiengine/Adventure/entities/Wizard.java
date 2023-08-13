@@ -1,27 +1,21 @@
 package com.litiengine.Adventure.entities;
-import java.awt.geom.Point2D;
 
-import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.abilities.FireballAbility;
 import com.litiengine.Adventure.inputs.PlayerMovementController;
-import com.litiengine.Adventure.animations.EntityAnimationController;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.IUpdateable;
-import de.gurkenlabs.litiengine.input.PlatformingMovementController;
-import de.gurkenlabs.litiengine.physics.GravityForce;
-import de.gurkenlabs.litiengine.physics.IMovementController;
 import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.AnimationInfo;
 import de.gurkenlabs.litiengine.entities.CollisionInfo;
 import de.gurkenlabs.litiengine.entities.CombatInfo;
 import de.gurkenlabs.litiengine.entities.EntityInfo;
-import de.gurkenlabs.litiengine.entities.ICombatEntity;
 import de.gurkenlabs.litiengine.entities.MovementInfo;
 import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.CreatureAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
+import de.gurkenlabs.litiengine.resources.Resources;
 
 
 
@@ -34,7 +28,7 @@ public final class Wizard extends Player implements IUpdateable{
 
     private static final Wizard instance = new Wizard();
     private final FireballAbility range = new FireballAbility(this);
-    
+    private boolean deathPlayed;
     public static Wizard create() {
         
         return instance;
@@ -43,35 +37,41 @@ public final class Wizard extends Player implements IUpdateable{
     public Wizard() {
         super("wizard");
         addController(new PlayerMovementController(this));
-        this.name = "Wizard";
         
-        // onDeath(event -> {
-        //     instance.setVisible(false);
-        //     // remove the player from the world
-        //     // Point2D spawnpoint = this.getSpawnPointPos();
-        //     // instance.setLocation(spawnpoint);
-        //     // // respawn the player at the spawnpoint enter
-        //     // instance.resurrect();
-        //     // instance.setVisible(true);
-        // });
+        onDeath(event -> {
+            animations().play("wizard-death-right");
+            try{
+                wait(5000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            this.setVisible(false);
+             
+            // remove the player from the world
+            // Point2D spawnpoint = this.getSpawnPointPos();
+            // instance.setLocation(spawnpoint);
+            // // respawn the player at the spawnpoint enter
+            // instance.resurrect();
+            // instance.setVisible(true);
+        });
     }
     
     @Override
     protected IEntityAnimationController<?> createAnimationController() {
         IEntityAnimationController<?> controller = new CreatureAnimationController<>(this, true);
-        // Animation test = new Animation("wizard-walk-right", true, true)
-        controller.add(new Animation("wizard-walk-right", true, true));
-        controller.add(new Animation("wizard-idle-right", true, true));
-
+        // adding animations to the game with left and right sprites
         controller.add(new Animation("wizard-attack-right", true, false));
+        controller.add(new Animation("wizard-attack-left", true, false));
         controller.add(new Animation("wizard-jump-right", true, false));
-        controller.add(new Animation("wizard-death-right", true, true));
-        controller.addRule(x -> Wizard.create().isIdle(), x -> "wizard-idle-right");
-        controller.addRule(x -> !Wizard.create().isIdle(), x -> "wizard-walk-right");
-        controller.addRule(x -> Wizard.create().isDead(), x -> "wizard-death-right");
-        controller.addRule(x -> Wizard.create().range.isActive(), x -> "wizard-attack-right");
-        controller.addRule(x -> Wizard.create().jump.isActive(), x -> "wizard-jump-right");
-        
+        controller.add(new Animation("wizard-jump-left", true, false));
+        controller.add(new Animation("wizard-death-right", false, false));
+        // setting rules when to play animation
+        // add for right side movement
+        controller.addRule(x -> Wizard.create().range.isActive() && this.getFacingDirection() == Direction.RIGHT, x -> "wizard-attack-right");
+        controller.addRule(x -> Wizard.create().jump.isActive() && this.getFacingDirection() == Direction.RIGHT, x -> "wizard-jump-right");
+        //add for left side movement
+        controller.addRule(x -> Wizard.create().range.isActive() && this.getFacingDirection() == Direction.LEFT, x -> "wizard-attack-left");
+        controller.addRule(x -> Wizard.create().jump.isActive() && this.getFacingDirection() == Direction.LEFT, x -> "wizard-jump-left");
         return controller;
     }
     
@@ -82,13 +82,16 @@ public final class Wizard extends Player implements IUpdateable{
         }
         if (this.colllideDeadly()){
             //respawn player
-            instance.die();
+            this.die();
         }
-        // System.out.println(animations().getCurrentAnimationName());
+
+
+        
     }
 
     public void attack(){
         if(range.hasEnded()){
+            Game.audio().playSound(Resources.sounds().get("audio/fireball.mp3"));
             range.cast();
             cooldown = 0;
         }
