@@ -1,9 +1,12 @@
 package com.litiengine.Adventure.screens;
 
 import de.gurkenlabs.litiengine.Game;
+import de.gurkenlabs.litiengine.graphics.Spritesheet;
 import de.gurkenlabs.litiengine.gui.ImageComponent;
+import de.gurkenlabs.litiengine.gui.Menu;
 import de.gurkenlabs.litiengine.gui.screens.Screen;
 import de.gurkenlabs.litiengine.resources.Resources;
+import de.gurkenlabs.litiengine.util.Imaging;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -15,39 +18,45 @@ import java.awt.image.BufferedImage;
 public class TitleScreen extends Screen {
 
     // The component representing the "Start Game" button
-    private ImageComponent startGame;
-
+    private ImageComponent bkgr;
+    private Menu TitleMenu;
     // Constructor
     public TitleScreen() {
         super("title"); // Set a unique identifier for this screen
     }
 
     @Override
-    public void render(Graphics2D g) {
-        super.render(g); // Render the base screen
-        startGame.render(g); // Render the "Start Game" button component
+    public void prepare(){
+        super.prepare();
+
     }
 
     @Override
     protected void initializeComponents() {
         super.initializeComponents(); // Initialize components of the base screen
-
+        final BufferedImage buttonImg = Imaging.scale(Resources.images().get("images/menu_item.png"), .3f);
+        final Spritesheet button = new Spritesheet(buttonImg, "images/menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
+        final String[] items = {"Start Game"};
         // Load the button image and create the "Start Game" button component
-        BufferedImage button = Resources.images().get("images/Screenshot 2023-08-07 at 22.05.28.png");
-        startGame = new ImageComponent(Game.window().getWidth() + 100, Game.window().getHeight() - 100, button);
-        startGame.setText("Start Game");
+        bkgr = new ImageComponent(-50, 50, Resources.images().get("images/trial2.png"));
 
+        TitleMenu = new Menu((Game.window().getWidth()  - buttonImg.getWidth()) / 2d,
+                (Game.window().getHeight() + 1350  - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
+                button, items);
         // Add a click event handler to transition to the "menu" screen when the button is clicked
-        startGame.onClicked(event -> {
-            suspend();
-            Game.screens().display("menu");
+        TitleMenu.onChange(index -> {
+            if (index == 0) {
+                suspend();
+                Game.screens().display("menu");
+            }
         });
-
         // Set a hover sound for the button
-        startGame.setHoverSound(Resources.sounds().get("audio/click.mp3"));
+        TitleMenu.setHoverSound(Resources.sounds().get("audio/click.mp3"));
 
         // Add the "Start Game" button component to the screen's components
-        getComponents().add(startGame);
+        getComponents().add(bkgr);
+        getComponents().add(TitleMenu);
+
     }
 }
 
