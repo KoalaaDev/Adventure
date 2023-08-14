@@ -25,11 +25,16 @@ public class FireballAbility extends Ability{
 	public AbilityExecution cast() {
 		Game.world().environment().add(Fireball.instance());
 		// spawn the fireball depending on the direction of the player
-		if(player.getFacingDirection() == Direction.LEFT)
+		if(player.getFacingDirection() == Direction.LEFT){
 			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), -100, 100));
-			Fireball.instance().setFacingDirection(null);
-		if(player.getFacingDirection() == Direction.RIGHT)
+			Fireball.instance().setFacingDirection(Direction.LEFT);
+		}
+			
+		if(player.getFacingDirection() == Direction.RIGHT){
 			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), 200, 100));
+			Fireball.instance().setFacingDirection(Direction.RIGHT);
+		}
+			
 		
 		return super.cast();
 	}
