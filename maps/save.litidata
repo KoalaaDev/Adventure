@@ -255,13 +255,14 @@
       <property name="tags" value="deadly"/>
      </properties>
     </object>
-    <object id="30" type="SPAWNPOINT" x="1632" y="640" width="96" height="96">
+    <object id="30" type="SPAWNPOINT" x="1632" y="576" width="96" height="96">
      <properties>
       <property name="collisionAlign" value="CENTER"/>
       <property name="collisionType" value="DYNAMIC"/>
       <property name="collisionValign" value="DOWN"/>
       <property name="spawnDirection" value="DOWN"/>
       <property name="spawnPivot" value="DIMENSION_CENTER"/>
+      <property name="tags" value="enemy"/>
      </properties>
     </object>
    </objectgroup>

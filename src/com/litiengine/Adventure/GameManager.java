@@ -6,10 +6,14 @@ import de.gurkenlabs.litiengine.graphics.Camera;
 import de.gurkenlabs.litiengine.graphics.PositionLockCamera;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.awt.geom.Point2D;
 
+import com.litiengine.Adventure.entities.CatfishWarrior;
+import com.litiengine.Adventure.entities.Enemy;
 import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
 import com.litiengine.Adventure.entities.Wizard;
@@ -25,6 +29,7 @@ public final class GameManager {
   }
   
   public static void start(){
+    spawnEnemy(10);
     Game.world().environment().add(player);
     Spawnpoint spawnpoint = player.getSpawnPointPos();
     GeometryUtilities.setCenter(player, spawnpoint.getCenter());
@@ -50,6 +55,10 @@ public final class GameManager {
     return getCharacterClass(characterClass);
   }
 
+  public static Player getPlayer(){
+    return player;
+  }
+
   public static Set<IInteractEntity> getInteractables(){
     return interactEntities;
   }
@@ -70,6 +79,21 @@ public final class GameManager {
 
   public static void respawn(){
     transition(Game.world().environment().getMap().getName());
+  }
+
+  public static void spawnEnemy(int amount){
+    if(Game.world().environment().getSpawnpoints("enemy").isEmpty()){
+      System.out.println("No enemy spawns found!");
+      return;
+    }
+    Collection<Spawnpoint> spawns = Game.world().environment().getSpawnpoints("enemy");
+    while(amount!=0){
+      Enemy enemy = new CatfishWarrior();
+      enemy.setScaling(true);
+      Game.world().environment().add(enemy);
+      GeometryUtilities.setCenter(enemy, Game.random().choose(spawns).getLocation());
+      amount--;
+    }
   }
 
 }
