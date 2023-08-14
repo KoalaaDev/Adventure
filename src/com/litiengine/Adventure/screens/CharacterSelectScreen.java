@@ -29,15 +29,15 @@ public class CharacterSelectScreen extends Screen {
         final String[] characters = { "Wizard", "Knight" };
         bkgr = new ImageComponent(0, 0, Resources.images().get("images/pxfuel-2.jpg"));
 
-        double menuY = (Game.window().getHeight() + 500- buttonImg.getHeight() * characters.length) / 2d;
-        characterMenu = new Menu((Game.window().getWidth() + 1000 - buttonImg.getWidth()) / 2d, menuY, buttonImg.getWidth(), buttonImg.getHeight() * characters.length,
+        double menuY = (Game.window().getHeight() + 500 - buttonImg.getHeight() * characters.length) / 2d;
+        characterMenu = new Menu((Game.window().getWidth()  - buttonImg.getWidth()) / 2d, menuY, buttonImg.getWidth(), buttonImg.getHeight() * characters.length,
                 button, characters);
 
         characterMenu.onChange(index -> {
             if (index == 0) {
                 suspend();
-                Wizard wizard = new Wizard();
-                Game.world().environment().add(wizard);
+               // Wizard wizard = new Wizard();
+               // Game.world().environment().add(wizard);
                 Game.screens().display("INGAME-SCREEN");
             }
             // Add conditions for other character options if needed

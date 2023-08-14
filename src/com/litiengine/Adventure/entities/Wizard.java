@@ -83,7 +83,8 @@ public final class Wizard extends Player implements IUpdateable{
             //respawn player
             this.die();
         }
-        if(animations().getCurrent().getName().equals("wizard-walk-right")&&isDead()){
+
+        if(!(animations().getCurrent() == null) &&animations().getCurrent().getName().equals("wizard-walk-right")&&isDead()){
             this.setVisible(false);
             Game.world().environment().remove(this);
             GameManager.respawn();
