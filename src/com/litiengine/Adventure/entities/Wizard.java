@@ -86,23 +86,21 @@ public final class Wizard extends Player implements IUpdateable{
         if(animations().getCurrent().getName().equals("wizard-walk-right")&&isDead()){
             this.setVisible(false);
             Game.world().environment().remove(this);
+            GameManager.respawn();
             
         }
         if(isHit() && this.healthLastInstance != this.getHitPoints().get()){
             this.healthLastInstance = this.getHitPoints().get();
         }
-        if(cooldown<=100)
+        if(cooldown<=70)
             cooldown++;
 
-            
-
-        
     }
 
     public void attack(){
-        if(!Game.screens().current().getName().equals("INGAME-SCREEN"))
+        if(!Game.screens().current().getName().equals("INGAME-SCREEN") || this.isDead())
             return;
-        if(range.hasEnded() &&cooldown>100){
+        if(range.hasEnded() &&cooldown>70){
             Game.audio().playSound(Resources.sounds().get("audio/fireball.mp3"));
             range.cast();
             cooldown = 0;

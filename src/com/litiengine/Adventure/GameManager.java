@@ -20,11 +20,11 @@ import de.gurkenlabs.litiengine.resources.Resources;
 public final class GameManager {
   public static final Set<IInteractEntity> interactEntities = new HashSet<>();
   public static Font minecraft = Resources.fonts().get("images/Minecraft.ttf");
+  private static Player player = getCharacterClass("Wizard");
   private void Gamemanager(){
   }
   
   public static void start(){
-    Player player = getCharacterClass("Wizard");
     Game.world().environment().add(player);
     Spawnpoint spawnpoint = player.getSpawnPointPos();
     GeometryUtilities.setCenter(player, spawnpoint.getCenter());
@@ -46,7 +46,30 @@ public final class GameManager {
     
   }
 
+  public static Player setCharacterClass(String characterClass){
+    return getCharacterClass(characterClass);
+  }
+
   public static Set<IInteractEntity> getInteractables(){
     return interactEntities;
   }
+
+  public static void transition(String map){
+    Game.world().environment().unload();
+    Game.world().loadEnvironment(map);
+    Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
+    player.resurrect();
+    player.setVisible(true);
+    spawn.spawn(player);
+  }
+
+  public static int MilliToTicks(int millis) {
+    // variable tick rate conversion
+    return Game.loop().getTickRate() * millis / 1000;
+  }
+
+  public static void respawn(){
+    transition(Game.world().environment().getMap().getName());
+  }
+
 }

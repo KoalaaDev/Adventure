@@ -16,7 +16,7 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import java.awt.geom.Rectangle2D;
 
 
-public abstract class Player extends Creature {
+public abstract class Player extends Creature{
     // create a base player class which can serve as a base for future implementation of new heroes
     public String name;
     protected final Jump jump;
@@ -96,7 +96,6 @@ public abstract class Player extends Creature {
         return false;
     }
     public abstract void attack();
-
     public final Spawnpoint getSpawnPointPos(){
         return Game.world().environment().getSpawnpoints("player").iterator().next();
     }
