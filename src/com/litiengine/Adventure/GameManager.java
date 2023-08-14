@@ -29,7 +29,7 @@ public final class GameManager {
   }
   
   public static void start(){
-    spawnEnemy(10);
+    spawnEnemy(2);
     Game.world().environment().add(player);
     Spawnpoint spawnpoint = player.getSpawnPointPos();
     GeometryUtilities.setCenter(player, spawnpoint.getCenter());
@@ -67,8 +67,10 @@ public final class GameManager {
     Game.world().environment().unload();
     Game.world().loadEnvironment(map);
     Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
-    player.resurrect();
-    player.setVisible(true);
+    if(player.isDead()){
+      player.resurrect();
+      player.setVisible(true);
+    }
     spawn.spawn(player);
   }
 
@@ -89,9 +91,12 @@ public final class GameManager {
     Collection<Spawnpoint> spawns = Game.world().environment().getSpawnpoints("enemy");
     while(amount!=0){
       Enemy enemy = new CatfishWarrior();
+      Point2D point = Game.random().choose(spawns).getLocation();
+      double num = Game.random().nextDouble(-200, 200);
+      point.setLocation(point.getX()+num, point.getY());
       enemy.setScaling(true);
       Game.world().environment().add(enemy);
-      GeometryUtilities.setCenter(enemy, Game.random().choose(spawns).getLocation());
+      GeometryUtilities.setCenter(enemy, point);
       amount--;
     }
   }
