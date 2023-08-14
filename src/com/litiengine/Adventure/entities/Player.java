@@ -22,10 +22,9 @@ public abstract class Player extends Creature {
     protected final Jump jump;
     
     protected int consecutiveJumps;
-    private int money = 0, lvl = 1;
+    private int money = 0, strength;
     public static final int MAX_ADDITIONAL_JUMPS = 1;
     public final PlayerHealthBar healthBar = new PlayerHealthBar(this);
-    public boolean onGround = false;
     public int updatetimer = 0;
     public int healthLastInstance = 100;
     public int cooldown = 0;
@@ -53,6 +52,10 @@ public abstract class Player extends Creature {
                 updatetimer = 0;
             }
             
+        });
+
+        onHit(e ->{
+            Game.audio().playSound(Resources.sounds().get("audio/player-hit.mp3"));
         });
         this.jump = new Jump(this);
     }
@@ -98,14 +101,24 @@ public abstract class Player extends Creature {
         return Game.world().environment().getSpawnpoints("player").iterator().next();
     }
 
+    public final void addMoney(int money){
+        this.money+=money;
+    }
+
     public final int getMoney(){
         return money;
     }
 
-    public final int getLvl(){
-        return lvl;
+    public final void setStrength(int strength){
+        this.strength = strength;
     }
 
+    public final int getStrength(){
+        return this.strength;
+    }
 
+    public final boolean isHit(){
+        return this.healthLastInstance > this.getHitPoints().get();
+    }
 }
 

@@ -14,19 +14,20 @@ import de.gurkenlabs.litiengine.abilities.AbilityExecution;
 
 
 public class FireballAbility extends Ability{
-	// a general attack class which can be implemented by any entity
+	// a Fireball attack for the wizard hero
 	private Player player;
 	public FireballAbility(Player executor) {
 		super(executor);
 		this.player = executor;
 	}
-
+	
 	@Override
 	public AbilityExecution cast() {
 		Game.world().environment().add(Fireball.instance());
 		// spawn the fireball depending on the direction of the player
 		if(player.getFacingDirection() == Direction.LEFT)
 			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), -100, 100));
+			Fireball.instance().setFacingDirection(null);
 		if(player.getFacingDirection() == Direction.RIGHT)
 			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), 200, 100));
 		

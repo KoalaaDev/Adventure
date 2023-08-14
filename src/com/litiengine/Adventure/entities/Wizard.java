@@ -37,10 +37,9 @@ public final class Wizard extends Player implements IUpdateable{
     public Wizard() {
         super("wizard");
         addController(new PlayerMovementController(this));
-        
         onDeath(event -> {
             Game.audio().playSound(Resources.sounds().get("audio/wizard-death.mp3"));
-            animations().play("wizard-death-right");             
+            animations().play("wizard-death-right");    
             // remove the player from the world
             // Point2D spawnpoint = this.getSpawnPointPos();
             // instance.setLocation(spawnpoint);
@@ -60,13 +59,18 @@ public final class Wizard extends Player implements IUpdateable{
         controller.add(new Animation("wizard-jump-right", true, false));
         controller.add(new Animation("wizard-jump-left", true, false));
         controller.add(new Animation("wizard-death-right", false, false));
+        controller.add(new Animation("wizard-hurt-right", false, false));
+        controller.add(new Animation("wizard-hurt-left", false, false));
         // setting rules when to play animation
         // add for right side movement
+
         controller.addRule(x -> Wizard.create().range.isActive() && this.getFacingDirection() == Direction.RIGHT, x -> "wizard-attack-right");
         controller.addRule(x -> Wizard.create().jump.isActive() && this.getFacingDirection() == Direction.RIGHT, x -> "wizard-jump-right");
+        controller.addRule(x -> Wizard.create().isHit() && this.getFacingDirection() == Direction.RIGHT, x -> "wizard-hurt-right");
         //add for left side movement
         controller.addRule(x -> Wizard.create().range.isActive() && this.getFacingDirection() == Direction.LEFT, x -> "wizard-attack-left");
         controller.addRule(x -> Wizard.create().jump.isActive() && this.getFacingDirection() == Direction.LEFT, x -> "wizard-jump-left");
+        controller.addRule(x -> Wizard.create().isHit() && this.getFacingDirection() == Direction.LEFT, x -> "wizard-hurt-left");
         return controller;
     }
     
@@ -84,13 +88,21 @@ public final class Wizard extends Player implements IUpdateable{
             Game.world().environment().remove(this);
             
         }
+        if(isHit() && this.healthLastInstance != this.getHitPoints().get()){
+            this.healthLastInstance = this.getHitPoints().get();
+        }
+        if(cooldown<=100)
+            cooldown++;
+
             
 
         
     }
 
     public void attack(){
-        if(range.hasEnded()){
+        if(!Game.screens().current().getName().equals("INGAME-SCREEN"))
+            return;
+        if(range.hasEnded() &&cooldown>100){
             Game.audio().playSound(Resources.sounds().get("audio/fireball.mp3"));
             range.cast();
             cooldown = 0;
