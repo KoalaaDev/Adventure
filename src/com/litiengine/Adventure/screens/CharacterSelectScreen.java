@@ -27,7 +27,7 @@ public class CharacterSelectScreen extends Screen {
         final BufferedImage buttonImg = Imaging.scale(Resources.images().get("images/menu_item.png"), .5f);
         final Spritesheet button = new Spritesheet(buttonImg, "images/menu_item.png", buttonImg.getWidth(), buttonImg.getHeight());
         final String[] characters = { "Wizard", "Knight" };
-        bkgr = new ImageComponent(0, 0, Resources.images().get("images/pxfuel-2.jpg"));
+        bkgr = new ImageComponent(0, 0, Resources.images().get("images/CharacterMenu.jpg"));
 
         double menuY = (Game.window().getHeight() + 500 - buttonImg.getHeight() * characters.length) / 2d;
         characterMenu = new Menu((Game.window().getWidth()  - buttonImg.getWidth()) / 2d, menuY, buttonImg.getWidth(), buttonImg.getHeight() * characters.length,

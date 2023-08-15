@@ -39,6 +39,7 @@ public class MainMenuScreen extends Screen{
         menu.onChange(index -> {
             if(index == 0){
                suspend();
+                Game.screens().add(new CharacterSelectScreen());
                Game.screens().display("CharacterScreen");
             }
             if(index == 1){

@@ -52,10 +52,14 @@ public class IngameMenuScreen extends Screen  {
                 buttonImg.getWidth(), buttonImg.getHeight() * items.length, button, items);
         bkg = new ImageComponent(0, 0, Resources.images().get("images/menu.png"));
         menu.onChange(index -> {
-            if (index == 0)
+            if (index == 0) {
+                suspend();
                 Game.screens().display("INGAME-SCREEN");
-            if (index == 1)
+            }
+            if (index == 1) {
+                suspend();
                 Game.screens().display("menu");
+            }
         });
         for (ImageComponent cell : menu.getCellComponents()) {
             cell.setHoverSound(Resources.sounds().get("audio/sounds_mouse-over.wav"));

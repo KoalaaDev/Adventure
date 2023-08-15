@@ -34,11 +34,13 @@ public class inGameScreen extends GameScreen implements KeyPressedListener{
     @Override
     public void keyPressed(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            Game.screens().add(new IngameMenuScreen());
             Game.screens().display("ingameMenu");
         }
     }
     public void prepare() {
         super.prepare();
+        suspend();
         Game.audio().stopMusic();
         Game.audio().playMusic(Resources.sounds().get("mainmenu.mp3"));
 
