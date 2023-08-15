@@ -25,11 +25,14 @@ public final class GameManager {
   public static final Set<IInteractEntity> interactEntities = new HashSet<>();
   public static Font minecraft = Resources.fonts().get("images/Minecraft.ttf");
   private static Player player = getCharacterClass("Wizard");
+  private enum EnemyType{
+    CATFISHWARRIOR
+  }
   private void Gamemanager(){
   }
   
   public static void start(){
-    spawnEnemy(2);
+    spawnEnemy(EnemyType.CATFISHWARRIOR, 1, 0);
     Game.world().environment().add(player);
     Spawnpoint spawnpoint = player.getSpawnPointPos();
     GeometryUtilities.setCenter(player, spawnpoint.getCenter());
@@ -83,21 +86,30 @@ public final class GameManager {
     transition(Game.world().environment().getMap().getName());
   }
 
-  public static void spawnEnemy(int amount){
+  public static void spawnEnemy(EnemyType cls, int waves, int delay){
     if(Game.world().environment().getSpawnpoints("enemy").isEmpty()){
       System.out.println("No enemy spawns found!");
       return;
     }
+    for(int i = 0; i < waves; i++){
+      Game.loop().perform(delay, () -> {
+        SpawnWave(cls);
+      });
+    }
+  }
+
+  public static void SpawnWave(EnemyType cls){
     Collection<Spawnpoint> spawns = Game.world().environment().getSpawnpoints("enemy");
-    while(amount!=0){
-      Enemy enemy = new CatfishWarrior();
-      Point2D point = Game.random().choose(spawns).getLocation();
-      double num = Game.random().nextDouble(-200, 200);
-      point.setLocation(point.getX()+num, point.getY());
+    for(Spawnpoint spawn : spawns){
+      Enemy enemy = null;
+      if (cls == EnemyType.CATFISHWARRIOR){
+        enemy = new CatfishWarrior();
+      }
+      
+      Point2D point = spawn.getLocation();
       enemy.setScaling(true);
       Game.world().environment().add(enemy);
       GeometryUtilities.setCenter(enemy, point);
-      amount--;
     }
   }
 

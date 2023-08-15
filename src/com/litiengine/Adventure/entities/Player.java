@@ -9,11 +9,13 @@ import de.gurkenlabs.litiengine.entities.Action;
 import de.gurkenlabs.litiengine.entities.CollisionBox;
 import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.Spawnpoint;
+import de.gurkenlabs.litiengine.entities.Trigger;
 import de.gurkenlabs.litiengine.physics.Collision;
 import de.gurkenlabs.litiengine.physics.GravityForce;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Collection;
 
 
 public abstract class Player extends Creature{
@@ -50,6 +52,12 @@ public abstract class Player extends Creature{
             }
             if (isIdle() && updatetimer != 0) {
                 updatetimer = 0;
+            }
+            GravityForce ladder = new GravityForce(this, 20, Direction.UP);
+            if(canClimbLadder()){
+                ladder.setIdentifier("Ladder");
+                this.movement().apply(ladder); //pull the player up
+                Game.loop().perform(250, ()->ladder.end()); //end the force after 250ms
             }
             
         });
@@ -118,6 +126,17 @@ public abstract class Player extends Creature{
 
     public final boolean isHit(){
         return this.healthLastInstance > this.getHitPoints().get();
+    }
+
+    public final boolean canClimbLadder(){
+        Collection<Trigger> ladder = Game.world().environment().getTriggers("ladder"); // we get all triggers from the map with the name "ladder"
+        for (Trigger box : ladder) {
+            if (this.getCollisionBox().intersects(box.getBoundingBox())) { // if the player is on a ladder return true
+                return true;
+            }
+        }
+        return false;
+
     }
 }
 
