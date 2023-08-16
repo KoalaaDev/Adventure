@@ -1,8 +1,6 @@
 package com.litiengine.Adventure.entities;
 
 import com.litiengine.Adventure.GameManager;
-import com.litiengine.Adventure.abilities.MeleeAttackAbility;
-import com.litiengine.Adventure.inputs.EnemyController;
 import com.litiengine.Adventure.inputs.TestController;
 
 import de.gurkenlabs.litiengine.Direction;
@@ -22,7 +20,6 @@ import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 @MovementInfo(velocity = 100)
 @CollisionInfo(collision = true, collisionBoxWidth = 55, collisionBoxHeight = 80)
 public class CatfishWarrior extends Enemy implements IUpdateable{
-    public Ability attackAbility = new MeleeAttackAbility(this);
     public static Enemy create(){
         return new CatfishWarrior();
     }

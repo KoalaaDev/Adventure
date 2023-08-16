@@ -2,22 +2,18 @@ package com.litiengine.Adventure.inputs;
 
 import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.entities.Enemy;
-import com.litiengine.Adventure.utilities.GeometryUtilities;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
-import de.gurkenlabs.litiengine.entities.Creature;
 import de.gurkenlabs.litiengine.entities.IEntity;
 import de.gurkenlabs.litiengine.entities.Trigger;
 import de.gurkenlabs.litiengine.entities.behavior.IBehaviorController;
 import de.gurkenlabs.litiengine.physics.Collision;
-import de.gurkenlabs.litiengine.util.MathUtilities;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 
-import javax.sound.midi.SysexMessage;
 
 public class TestController implements IBehaviorController{
 	private final Enemy enemy;

@@ -29,8 +29,7 @@ public final class Wizard extends Player implements IUpdateable{
 
     private static final Wizard instance = new Wizard();
     private final FireballAbility range = new FireballAbility(this);
-    public static Wizard create() {
-        
+    public static Wizard create() { // create a new instance of the player
         return instance;
     }
 

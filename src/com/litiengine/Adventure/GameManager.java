@@ -69,10 +69,12 @@ public final class GameManager {
   }
 
   public static void transition(String map){
+    // this allows us to transition between maps only if there are no enemies left
     if(Game.world().environment().getEntities(Enemy.class).isEmpty()&& !Game.world().environment().getMap().getName().equals(map)){
       Game.world().environment().unload();
       Game.world().loadEnvironment(map);
       Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
+      // based on the map we are transitioning to, we spawn enemies specific to that map
       if(Game.world().environment().getMap().getName().equals("map1"))
         GameManager.spawnEnemy(GameManager.EnemyType.CATFISHWARRIOR, 1, 200);
       if(Game.world().environment().getMap().getName().equals("map2"))
@@ -88,14 +90,15 @@ public final class GameManager {
   }
 
   public static void respawn(){
+    // reload the current map
     Game.world().environment().unload();
     Game.world().loadEnvironment(Game.world().environment().getMap().getName());
     Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
-    if(player.isDead()){
+    if(player.isDead()){ // if the player is dead, we resurrect them
       player.resurrect();
       player.setVisible(true);
     }
-    
+    // spawn back at the spawnpoint
     spawn.spawn(player);
   }
 
@@ -104,7 +107,7 @@ public final class GameManager {
       System.out.println("No enemy spawns found!");
       return;
     }
-    for(int i = 0; i < waves; i++){
+    for(int i = 0; i < waves; i++){ // for each wave, we spawn enemies based on the delay
       Game.loop().perform(delay, () -> {
         SpawnWave(cls);
       });
@@ -113,8 +116,9 @@ public final class GameManager {
 
   public static void SpawnWave(EnemyType cls){
     Collection<Spawnpoint> spawns = Game.world().environment().getSpawnpoints("enemy");
-    for(Spawnpoint spawn : spawns){
+    for(Spawnpoint spawn : spawns){ // we spawn an enemy at each spawnpoint
       Enemy enemy = null;
+      // we create an enemy based on the type specified
       if (cls == EnemyType.CATFISHWARRIOR){
         enemy = new CatfishWarrior();
       }
@@ -125,7 +129,7 @@ public final class GameManager {
         System.out.println("Invalid enemy type!");
         return;
       }
-      
+      // spawn at the spawnpoint tagged "enemy"
       Point2D point = spawn.getLocation();
       point.setLocation(point.getX(), point.getY() - 50);
       enemy.setScaling(true);
