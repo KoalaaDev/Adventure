@@ -16,7 +16,6 @@ import com.litiengine.Adventure.entities.CatfishWarrior;
 import com.litiengine.Adventure.entities.Guardian;
 import com.litiengine.Adventure.entities.Enemy;
 import com.litiengine.Adventure.entities.Grunt;
-import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
 import com.litiengine.Adventure.entities.Wizard;
 import com.litiengine.Adventure.utilities.GeometryUtilities;
@@ -24,7 +23,6 @@ import com.litiengine.Adventure.utilities.GeometryUtilities;
 import de.gurkenlabs.litiengine.resources.Resources;
 
 public final class GameManager {
-  public static final Set<IInteractEntity> interactEntities = new HashSet<>();
   public static Font minecraft = Resources.fonts().get("images/Minecraft.ttf");
   private static Player player = getCharacterClass("Wizard");
   public enum EnemyType{
@@ -66,9 +64,6 @@ public final class GameManager {
     return player;
   }
 
-  public static Set<IInteractEntity> getInteractables(){
-    return interactEntities;
-  }
 
   public static void transition(String map){
     // this allows us to transition between maps only if there are no enemies left
