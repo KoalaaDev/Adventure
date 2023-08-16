@@ -15,6 +15,7 @@ import java.awt.geom.Point2D;
 import com.litiengine.Adventure.entities.CatfishWarrior;
 import com.litiengine.Adventure.entities.Guardian;
 import com.litiengine.Adventure.entities.Enemy;
+import com.litiengine.Adventure.entities.Grunt;
 import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
 import com.litiengine.Adventure.entities.Wizard;
@@ -28,7 +29,8 @@ public final class GameManager {
   private static Player player = getCharacterClass("Wizard");
   public enum EnemyType{
     CATFISHWARRIOR,
-    GUARDIAN
+    GUARDIAN,
+    GRUNT
   }
   private void Gamemanager(){
   }
@@ -79,6 +81,8 @@ public final class GameManager {
         GameManager.spawnEnemy(GameManager.EnemyType.CATFISHWARRIOR, 1, 200);
       if(Game.world().environment().getMap().getName().equals("map2"))
         GameManager.spawnEnemy(GameManager.EnemyType.GUARDIAN, 1, 200);
+      if(Game.world().environment().getMap().getName().equals("map3"))
+        GameManager.spawnEnemy(GameManager.EnemyType.GRUNT, 1, 200);
       spawn.spawn(player);
     }
     
@@ -124,6 +128,9 @@ public final class GameManager {
       }
       else if (cls == EnemyType.GUARDIAN){
         enemy = new Guardian();
+      }
+      else if (cls == EnemyType.GRUNT){
+        enemy = new Grunt();
       }
       else{
         System.out.println("Invalid enemy type!");
