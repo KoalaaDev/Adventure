@@ -17,22 +17,22 @@ import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.CreatureAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 
-@EntityInfo(width = 256, height = 224)
+@EntityInfo(width = 224, height = 192)
 @CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 100)
-@CollisionInfo(collision = true, collisionBoxWidth = 55, collisionBoxHeight = 80)
-public class CatfishWarrior extends Enemy implements IUpdateable{
+@CollisionInfo(collision = true, collisionBoxWidth = 40, collisionBoxHeight = 70)
+public class Guardian extends Enemy implements IUpdateable{
     public Ability attackAbility = new MeleeAttackAbility(this);
     public static Enemy create(){
-        return new CatfishWarrior();
+        return new Guardian();
     }
-    public CatfishWarrior(){
-        super("CatfishWarrior");
+    public Guardian(){
+        super("Guardian");
         this.setMoney(1);
         this.setAttack(attackAbility);
         this.setVisionRange(300);
         onDeath(e->{
-            animations().play("CatfishWarrior-death-right");
+            animations().play("Guardian-death-right");
             Game.loop().perform(2000, () -> {
                 Game.world().environment().remove(this);
             });
@@ -52,9 +52,9 @@ public class CatfishWarrior extends Enemy implements IUpdateable{
         if(isHit() && this.healthLastInstance != this.getHitPoints().get() && !isDead()){
             this.healthLastInstance = this.getHitPoints().get();
             if(this.getFacingDirection() == Direction.LEFT)
-                animations().play("CatfishWarrior-hurt-left");
+                animations().play("Guardian-hurt-left");
             else
-                animations().play("CatfishWarrior-hurt-right");
+                animations().play("Guardian-hurt-right");
         }
 
         if(cooldown<=50)
@@ -65,13 +65,13 @@ public class CatfishWarrior extends Enemy implements IUpdateable{
     protected IEntityAnimationController<?> createAnimationController() {
         IEntityAnimationController<?> controller = new CreatureAnimationController<>(this, true);
         // adding animations to the game with left and right sprites
-        controller.add(new Animation("CatfishWarrior-attack-right", true, false));
-        controller.add(new Animation("CatfishWarrior-attack-left", true, false));
-        controller.add(new Animation("CatfishWarrior-jump-right", true, false));
-        controller.add(new Animation("CatfishWarrior-jump-left", true, false));
-        controller.add(new Animation("CatfishWarrior-death-right", false, false));
-        controller.add(new Animation("CatfishWarrior-hurt-right", false, false));
-        controller.add(new Animation("CatfishWarrior-hurt-left", false, false));
+        controller.add(new Animation("Guardian-attack-right", true, false));
+        controller.add(new Animation("Guardian-attack-left", true, false));
+        controller.add(new Animation("Guardian-jump-right", true, false));
+        controller.add(new Animation("Guardian-jump-left", true, false));
+        controller.add(new Animation("Guardian-death-right", false, false));
+        controller.add(new Animation("Guardian-hurt-right", false, false));
+        controller.add(new Animation("Guardian-hurt-left", false, false));
         return controller;
     }
     public void attack(){
@@ -79,9 +79,9 @@ public class CatfishWarrior extends Enemy implements IUpdateable{
             return;
         if(cooldown>50){
             if(this.getFacingDirection() == Direction.LEFT)
-                animations().play("CatfishWarrior-attack-left");
+                animations().play("Guardian-attack-left");
              else
-                animations().play("CatfishWarrior-attack-right");
+                animations().play("Guardian-attack-right");
     
             this.getTarget().hit(20);
             cooldown=0;

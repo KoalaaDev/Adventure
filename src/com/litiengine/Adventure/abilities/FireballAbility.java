@@ -31,7 +31,7 @@ public class FireballAbility extends Ability{
 		}
 			
 		if(player.getFacingDirection() == Direction.RIGHT){
-			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), 200, 100));
+			Fireball.instance().setLocation(GeometryUtilities.transpose(Wizard.create().getLocation(), 150, 100));
 			Fireball.instance().setFacingDirection(Direction.RIGHT);
 		}
 			

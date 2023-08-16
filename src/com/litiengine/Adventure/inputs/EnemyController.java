@@ -1,9 +1,11 @@
 package com.litiengine.Adventure.inputs;
 
+
 import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.abilities.IMeleeAbility;
-import com.litiengine.Adventure.entities.Enemy;
 import com.litiengine.Adventure.utilities.PathFinderUtilities;
+import com.litiengine.Adventure.entities.Enemy;
+
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.attributes.Attribute;
@@ -11,21 +13,20 @@ import de.gurkenlabs.litiengine.attributes.AttributeModifier;
 import de.gurkenlabs.litiengine.attributes.Modification;
 import de.gurkenlabs.litiengine.entities.behavior.AStarNode;
 import de.gurkenlabs.litiengine.entities.behavior.AStarPathFinder;
+
 import de.gurkenlabs.litiengine.entities.behavior.EntityNavigator;
 import de.gurkenlabs.litiengine.physics.MovementController;
 import de.gurkenlabs.litiengine.util.geom.GeometricUtilities;
-
-import java.awt.Point;
+import de.gurkenlabs.litiengine.input.PlatformingMovementController;
 import java.util.Set;
 
-
-public class EnemyController extends MovementController<Enemy> {
+public class EnemyController extends PlatformingMovementController<Enemy> {
 
 	private static final int ATTACK_DELAY = 500;
 	private static final double P_REST = 0.7;
 	private static final int REST_TIME = 1000;
 	private static final int WANDER_RANGE = 2;
-	private int attack = GameManager.MilliToTicks(ATTACK_DELAY);
+	private int attack = GameManager.MillisToTicks(ATTACK_DELAY);
 	public final EntityNavigator nav;
 	private int rest = 0;
 	private final AttributeModifier<Float> slowness = new AttributeModifier<>(Modification.DIVIDE, 2);
@@ -54,8 +55,7 @@ public class EnemyController extends MovementController<Enemy> {
 	}
 
 	private void rest() {
-		nav.stop();
-		rest = GameManager.MilliToTicks(REST_TIME);
+		rest = GameManager.MillisToTicks(REST_TIME);
 	}
 
 	private void runAway() {
@@ -63,6 +63,13 @@ public class EnemyController extends MovementController<Enemy> {
 				getEntity().getTarget().getCenter(), getEntity().getCenter(), WANDER_RANGE);
 
 		nav.navigate(node.getLocation());
+	}
+
+	private void slowDown() {
+		final Attribute<Float> attribute = getEntity().getVelocity();
+		if (!attribute.isModifierApplied(slowness)) {
+			attribute.addModifier(slowness);
+		}
 	}
 
 	private void speedUp() {
@@ -93,24 +100,21 @@ public class EnemyController extends MovementController<Enemy> {
 
 		if (!isDead) {
 			if (canSee) {
-				System.out.println("AI SPOTTED TARGET");
 				speedUp();
 				turnToTarget();
 				if (canHit) {
 					if (attack <= 0) {
-						System.out.println("AI ATTACKING");
 						attack();
 					} else {
 						--attack;
 					}
 				} else {
-					System.out.println("AI CHASING");
-					attack = GameManager.MilliToTicks(ATTACK_DELAY);
+					attack = GameManager.MillisToTicks(ATTACK_DELAY);
 					chase();
 				}
 			} else {
+				slowDown();
 				if (!rests && !hasGoal) {
-					System.out.println("AI IDLE");
 					idle();
 				}
 			}
@@ -118,15 +122,9 @@ public class EnemyController extends MovementController<Enemy> {
 	}
 
 	private void wanderAround() {
-		Game.random().nextInt(100);
-		double pointx = Game.random().nextDouble(-200,200);
-		Point point = new Point();
-		point.setLocation(getEntity().getX()+pointx, getEntity().getY());
-		System.out.println("AI IDLE");
-		nav.navigate(point);
-	}
+		final Set<AStarNode> nodes = PathFinderUtilities.getNodesAround(
+				((AStarPathFinder) nav.getPathFinder()).getGrid(), getEntity().getCenter(), WANDER_RANGE);
 
-	// private void isNearCliff(){
-	// 	getEntity().getCollisionBox()
-	// }
+		nav.navigate(Game.random().choose(nodes).getLocation());
+	}
 }

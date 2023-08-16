@@ -13,6 +13,7 @@ import java.util.Set;
 import java.awt.geom.Point2D;
 
 import com.litiengine.Adventure.entities.CatfishWarrior;
+import com.litiengine.Adventure.entities.Guardian;
 import com.litiengine.Adventure.entities.Enemy;
 import com.litiengine.Adventure.entities.IInteractEntity;
 import com.litiengine.Adventure.entities.Player;
@@ -25,8 +26,9 @@ public final class GameManager {
   public static final Set<IInteractEntity> interactEntities = new HashSet<>();
   public static Font minecraft = Resources.fonts().get("images/Minecraft.ttf");
   private static Player player = getCharacterClass("Wizard");
-  private enum EnemyType{
-    CATFISHWARRIOR
+  public enum EnemyType{
+    CATFISHWARRIOR,
+    GUARDIAN
   }
   private void Gamemanager(){
   }
@@ -67,23 +69,34 @@ public final class GameManager {
   }
 
   public static void transition(String map){
-    Game.world().environment().unload();
-    Game.world().loadEnvironment(map);
-    Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
-    if(player.isDead()){
-      player.resurrect();
-      player.setVisible(true);
+    if(Game.world().environment().getEntities(Enemy.class).isEmpty()&& !Game.world().environment().getMap().getName().equals(map)){
+      Game.world().environment().unload();
+      Game.world().loadEnvironment(map);
+      Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
+      if(Game.world().environment().getMap().getName().equals("map1"))
+        GameManager.spawnEnemy(GameManager.EnemyType.CATFISHWARRIOR, 1, 200);
+      if(Game.world().environment().getMap().getName().equals("map2"))
+        GameManager.spawnEnemy(GameManager.EnemyType.GUARDIAN, 1, 200);
+      spawn.spawn(player);
     }
-    spawn.spawn(player);
+    
   }
 
-  public static int MilliToTicks(int millis) {
+  public static int MillisToTicks(int millis) {
     // variable tick rate conversion
     return Game.loop().getTickRate() * millis / 1000;
   }
 
   public static void respawn(){
-    transition(Game.world().environment().getMap().getName());
+    Game.world().environment().unload();
+    Game.world().loadEnvironment(Game.world().environment().getMap().getName());
+    Spawnpoint spawn = Game.world().environment().getSpawnpoint("enter");
+    if(player.isDead()){
+      player.resurrect();
+      player.setVisible(true);
+    }
+    
+    spawn.spawn(player);
   }
 
   public static void spawnEnemy(EnemyType cls, int waves, int delay){
@@ -105,8 +118,16 @@ public final class GameManager {
       if (cls == EnemyType.CATFISHWARRIOR){
         enemy = new CatfishWarrior();
       }
+      else if (cls == EnemyType.GUARDIAN){
+        enemy = new Guardian();
+      }
+      else{
+        System.out.println("Invalid enemy type!");
+        return;
+      }
       
       Point2D point = spawn.getLocation();
+      point.setLocation(point.getX(), point.getY() - 50);
       enemy.setScaling(true);
       Game.world().environment().add(enemy);
       GeometryUtilities.setCenter(enemy, point);

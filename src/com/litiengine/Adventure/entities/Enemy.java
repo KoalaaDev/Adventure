@@ -25,9 +25,11 @@ public abstract class Enemy extends Creature{
     public int healthLastInstance = 100;
     public static final int MAX_ADDITIONAL_JUMPS = 1;
     protected int consecutiveJumps;
+    public int cooldown = 0;
     protected Enemy(String spriteName) {
         super(spriteName);
         this.setTarget(GameManager.getPlayer());
+        
         onMoved(e -> {
             GravityForce force = new GravityForce(this, 300, Direction.DOWN);
             force.setIdentifier("Gravity"); // add an identifier for later
@@ -36,6 +38,7 @@ public abstract class Enemy extends Creature{
 
             }
         });
+
     }
 
     protected boolean isTouchingGround() {
@@ -82,18 +85,7 @@ public abstract class Enemy extends Creature{
         this.attackAbility = ability;
     }
 
-    public boolean isNearCliff(){
-        Collection<Trigger> cliffs = Game.world().environment().getTriggers("cliff");
-        for (Trigger cliff : cliffs) {
-            if (cliff == null) {
-                return false;
-            }
-            if (this.getCollisionBox().intersects(cliff.getBoundingBox())) {
-                return true;
-            }
-        }
-        return false;
-    }
+    
 
     @Action(description = "This performs the jump ability for the player's entity.")
     public void jump() {
@@ -107,5 +99,9 @@ public abstract class Enemy extends Creature{
 
     public final boolean isHit(){
         return this.healthLastInstance > this.getHitPoints().get();
+    }
+    abstract public void attack();
+    public final void setVisionRange(int visionRange){
+        this.visionRange = visionRange;
     }
 }

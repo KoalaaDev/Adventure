@@ -1,4 +1,5 @@
 package com.litiengine.Adventure.entities;
+import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.abilities.Jump;
 import com.litiengine.Adventure.hp.PlayerHealthBar;
 import com.litiengine.Adventure.inputs.PlayerMovementController;
@@ -59,7 +60,6 @@ public abstract class Player extends Creature{
                 this.movement().apply(ladder); //pull the player up
                 Game.loop().perform(250, ()->ladder.end()); //end the force after 250ms
             }
-            
         });
 
         onHit(e ->{

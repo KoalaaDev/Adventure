@@ -1,10 +1,12 @@
 package com.litiengine.Adventure.abilities;
 
 import com.litiengine.Adventure.entities.Enemy;
+import com.litiengine.Adventure.entities.Fireball;
 import com.litiengine.Adventure.entities.Player;
 
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.abilities.Ability;
+import de.gurkenlabs.litiengine.abilities.AbilityExecution;
 import de.gurkenlabs.litiengine.abilities.AbilityInfo;
 import de.gurkenlabs.litiengine.abilities.effects.Effect;
 import de.gurkenlabs.litiengine.abilities.effects.EffectTarget;
@@ -29,12 +31,10 @@ public class MeleeAttackAbility extends Ability implements IMeleeAbility{
 			super.apply(entity);
 			// for different class apply the effect
 			if(team.equals(Type.HERO)){
-				entity.hit((int) ((Player) getAbility().getExecutor()).getStrength()
-					* getAbility().getAttributes().value().get());
+				entity.hit(20);
 			}
 			if(team.equals(Type.ENEMY)){
-				entity.hit((int) ((Enemy) getAbility().getExecutor()).getStrength()
-					* getAbility().getAttributes().value().get());
+				entity.hit(20);
 			}
 			
 		}
@@ -54,5 +54,22 @@ public class MeleeAttackAbility extends Ability implements IMeleeAbility{
 
 	public boolean canHit(ICollisionEntity target) {
 		return calculateImpactArea().intersects(target.getCollisionBox());
+	}
+	@Override
+	public AbilityExecution cast() {
+		if(team == Type.ENEMY){
+			Game.audio().playSound("audio/sword.wav");
+			MeleeAttackAbility attack = new MeleeAttackAbility((Enemy) this.getExecutor());
+			attack.cast();
+		}
+		return super.cast();
+	}
+	public boolean hasEnded(){
+		Player player = (Player)this.getExecutor().getTarget();
+		return true;
+	}
+	@Override
+	public boolean isActive(){
+		return !hasEnded();
 	}
 }
