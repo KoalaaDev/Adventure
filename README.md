@@ -1,5 +1,15 @@
 # Adventure
 This project requires Java 17 and is built using Gradle 7.5.1
+![image](https://github.com/KoalaaDev/Adventure/assets/56580596/0c9933ea-f6ea-42bd-949a-7355a6a03117)
+
+# How to play
+## Controls
+A - LEFT
+D - RIGHT
+SPACE - JUMP
+ENTER - ATTACK
+## Goals
+Kill all enemies in the level to proceed to the next level, if you reach the last level you win
 # Project Tree
 ```bash
 .
@@ -15,10 +25,7 @@ This project requires Java 17 and is built using Gradle 7.5.1
 │       └── litiengine/
 │           └── Adventure/
 │               ├── abilities
-│               ├── animations
-│               ├── collisions
 │               ├── entities
-│               ├── graphics
 │               ├── hp
 │               ├── inputs
 │               ├── screens
