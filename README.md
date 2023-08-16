@@ -48,3 +48,8 @@ gradle run
 ```
 # Documentation
 Documentation is available in the [wiki](https://github.com/KoalaaDev/Adventure/wiki)
+# Credits
+Created by University of Mauritius students for an OOP java course:<br>
+Rasesh Rampersand (2115975)<br>
+Chandnee Ramlugun (2116950)<br>
+William Gregory How Foh Yee (2114250)
