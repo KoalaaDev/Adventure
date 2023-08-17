@@ -28,7 +28,7 @@ public class Program {
 
     //
     // add the title screen
-    // Game.screens().add(new TitleScreen());
+    Game.screens().add(new TitleScreen());
     Game.screens().add(new MainMenuScreen());
 
      // add the screens that will help you organize the different states of your game
@@ -36,9 +36,7 @@ public class Program {
      //Game.screens().add(new BlackScreen());
 
     Game.screens().add(new inGameScreen());
-
     // load the first level (resources for the map were implicitly loaded from the game file)
-    Game.world().loadEnvironment("map1");
     
     Game.start();
   }

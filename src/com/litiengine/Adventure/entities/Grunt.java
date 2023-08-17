@@ -18,10 +18,10 @@ import de.gurkenlabs.litiengine.graphics.animation.Animation;
 import de.gurkenlabs.litiengine.graphics.animation.CreatureAnimationController;
 import de.gurkenlabs.litiengine.graphics.animation.IEntityAnimationController;
 
-@EntityInfo(width = 224, height = 192)
+@EntityInfo(width = 160, height = 128)
 @CombatInfo(hitpoints = 100)
 @MovementInfo(velocity = 100)
-@CollisionInfo(collision = true, collisionBoxWidth = 40, collisionBoxHeight = 70)
+@CollisionInfo(collision = true, collisionBoxWidth = 60, collisionBoxHeight = 90)
 public class Grunt extends Enemy implements IUpdateable{
     public static Enemy create(){
         return new Grunt();
