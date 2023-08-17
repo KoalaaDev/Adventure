@@ -2,7 +2,7 @@ package com.litiengine.Adventure.entities;
 
 
 import com.litiengine.Adventure.GameManager;
-import com.litiengine.Adventure.inputs.TestController;
+import com.litiengine.Adventure.inputs.EnemyController;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
@@ -36,7 +36,7 @@ public class Grunt extends Enemy implements IUpdateable{
             });
             GameManager.getPlayer().addMoney(moneyloot);
         });
-        addController(new TestController(this));
+        addController(new EnemyController(this));
     }
     @Override
     public void update(){

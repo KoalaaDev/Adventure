@@ -15,7 +15,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Collection;
 
 
-public class TestController implements IBehaviorController{
+public class EnemyController implements IBehaviorController{
 	private final Enemy enemy;
 	private long directionChanged;
 	private long nextDirectionChange;
@@ -23,7 +23,7 @@ public class TestController implements IBehaviorController{
 	private static final int ATTACK_DELAY = 50;
 	private static final int ATTACK_RANGE = 80;
 	private int attack = GameManager.MillisToTicks(ATTACK_DELAY);
-	public TestController(Enemy enemy) {
+	public EnemyController(Enemy enemy) {
 		this.enemy = enemy;
 	}
 
@@ -96,12 +96,9 @@ public class TestController implements IBehaviorController{
 			this.enemy.jump.cast();
 		}
 		if(canSee() && !isNearCliff()){
-			System.out.println("SPOTTED ENEMY");
 			turnToTarget();
-			System.out.println(enemy.getCenter().distance(enemy.getTarget().getCenter()));
 			if((int) enemy.getCenter().distance(enemy.getTarget().getCenter())<ATTACK_RANGE){
 				if (attack <= 0){
-					System.out.println("ATTACKING ENEMY");
 					enemy.attack();
 				}
 				else{
