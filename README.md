@@ -5,10 +5,10 @@ This project requires Java 17 and is built using Gradle 7.5.1
 
 # How to play
 ## Controls
-A - LEFT
-D - RIGHT
-SPACE - JUMP
-ENTER - ATTACK
+A - LEFT<br>
+D - RIGHT<br>
+SPACE - JUMP<br>
+ENTER - ATTACK<br>
 ## Goals
 Kill all enemies in the level to proceed to the next level, if you reach the last level you win
 # Project Tree
