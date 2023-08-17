@@ -1,5 +1,6 @@
 package com.litiengine.Adventure.screens;
 
+import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.entities.Wizard;
 import de.gurkenlabs.litiengine.Game;
 import de.gurkenlabs.litiengine.graphics.Spritesheet;
@@ -38,6 +39,8 @@ public class CharacterSelectScreen extends Screen {
                 suspend();
                // Wizard wizard = new Wizard();
                // Game.world().environment().add(wizard);
+                
+                GameManager.start();
                 Game.screens().display("INGAME-SCREEN");
             }
             // Add conditions for other character options if needed

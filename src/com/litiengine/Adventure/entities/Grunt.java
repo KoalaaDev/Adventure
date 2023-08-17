@@ -3,6 +3,8 @@ package com.litiengine.Adventure.entities;
 
 import com.litiengine.Adventure.GameManager;
 import com.litiengine.Adventure.inputs.EnemyController;
+import com.litiengine.Adventure.screens.MainMenuScreen;
+import com.litiengine.Adventure.screens.WinScreen;
 
 import de.gurkenlabs.litiengine.Direction;
 import de.gurkenlabs.litiengine.Game;
@@ -35,6 +37,9 @@ public class Grunt extends Enemy implements IUpdateable{
                 Game.world().environment().remove(this);
             });
             GameManager.getPlayer().addMoney(moneyloot);
+            if(Game.world().environment().getMap().getName().equals("map4"))
+                Game.screens().add(new WinScreen());
+                Game.screens().display("WinningScreen");
         });
         addController(new EnemyController(this));
     }

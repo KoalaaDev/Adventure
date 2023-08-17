@@ -94,6 +94,10 @@ public abstract class Player extends Creature{
     }
 
     protected boolean colllideDeadly(){
+        /*
+         * We detect if the entity collides with a predefined map Trigger called deadly
+         * by extending the collision box by one pixel
+         */
         Rectangle2D deadlyCheck = new Rectangle2D.Double(this.getCollisionBox().getX(), this.getCollisionBox().getY(), this.getCollisionBoxWidth(), this.getCollisionBoxHeight() + 1);
         java.util.Collection<CollisionBox> deadly = Game.world().environment().getCollisionBoxes("deadly");
         for (CollisionBox box : deadly) {
@@ -129,6 +133,7 @@ public abstract class Player extends Creature{
     }
 
     public final boolean canClimbLadder(){
+        // we detect if the player is on a ladder by checking if the collision box intersects with a trigger called ladder
         Collection<Trigger> ladder = Game.world().environment().getTriggers("ladder"); // we get all triggers from the map with the name "ladder"
         for (Trigger box : ladder) {
             if (this.getCollisionBox().intersects(box.getBoundingBox())) { // if the player is on a ladder return true

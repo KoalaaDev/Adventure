@@ -37,7 +37,8 @@ public final class GameManager {
     spawnEnemy(EnemyType.CATFISHWARRIOR, 1, 0);
     Game.world().environment().add(player);
     Spawnpoint spawnpoint = player.getSpawnPointPos();
-    GeometryUtilities.setCenter(player, spawnpoint.getCenter());
+    // GeometryUtilities.setCenter(player, spawnpoint.getCenter());
+    spawnpoint.spawn(player);
     player.setScaling(true);
     Camera camera = new PositionLockCamera(player);
     camera.setClampToMap(true);
@@ -77,6 +78,8 @@ public final class GameManager {
       if(Game.world().environment().getMap().getName().equals("map2"))
         GameManager.spawnEnemy(GameManager.EnemyType.GUARDIAN, 1, 200);
       if(Game.world().environment().getMap().getName().equals("map3"))
+        GameManager.spawnEnemy(GameManager.EnemyType.GRUNT, 1, 200);
+      if(Game.world().environment().getMap().getName().equals("map4"))
         GameManager.spawnEnemy(GameManager.EnemyType.GRUNT, 1, 200);
       spawn.spawn(player);
     }
@@ -126,6 +129,10 @@ public final class GameManager {
       }
       else if (cls == EnemyType.GRUNT){
         enemy = new Grunt();
+        if(Game.world().environment().getMap().getName().equals("map4"))
+          enemy.setSize(352, 352);
+          enemy.setCollisionBoxHeight(300);
+          enemy.setCollisionBoxWidth(200);
       }
       else{
         System.out.println("Invalid enemy type!");

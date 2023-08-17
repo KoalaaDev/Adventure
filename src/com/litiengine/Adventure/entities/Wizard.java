@@ -75,58 +75,58 @@ public final class Wizard extends Player implements IUpdateable{
     
     @Override
     public void update() {
-        if (this.isTouchingGround()) {
+        if (this.isTouchingGround()) { // stop it from double jumping
             this.consecutiveJumps = 0;
         }
-        if (this.colllideDeadly()){
+        if (this.colllideDeadly()){ // check if player is colliding with deadly objects
             //respawn player
             this.die();
         }
-
+        // if player died and the death animation is finished, respawn the player
         if(!(animations().getCurrent() == null) &&animations().getCurrent().getName().equals("wizard-walk-right")&&isDead()){
             this.setVisible(false);
             Game.world().environment().remove(this);
-            // GameManager.respawn();
             GameManager.respawn();
             
         }
+        // if player got hit, update the healthLastInstance to the current health
         if(isHit() && this.healthLastInstance != this.getHitPoints().get()){
             this.healthLastInstance = this.getHitPoints().get();
         }
-        if(cooldown<=50)
+        if(cooldown<=50) //ability cooldown check
             cooldown++;
-        // get transition logic from map1 to map2
+        // transition logic from map1 to map2
         if(Game.world().environment().getTrigger("map2") != null){
             if(Game.world().environment().getTrigger("map2").canTrigger(this)){
                 GameManager.transition("map2");
             }
         }
-        // get transition logic from map2 to map1
+        // transition logic from map2 to map1
         if(Game.world().environment().getTrigger("map2-1") != null){
             if(Game.world().environment().getTrigger("map2-1").canTrigger(this)){
                 GameManager.transition("map1");
             }
         }
 
-        // get transition logic from map2 to map3
+        // transition logic from map2 to map3
         if(Game.world().environment().getTrigger("map3") != null){
             if(Game.world().environment().getTrigger("map3").canTrigger(this)){
                 GameManager.transition("map3");
             }
         }
-        // get transition logic from map3 to map2
+        // transition logic from map3 to map2
         if(Game.world().environment().getTrigger("map3-2") != null){
             if(Game.world().environment().getTrigger("map3-2").canTrigger(this)){
                 GameManager.transition("map2");
             }
         }
-        // get transition logic from map3 to map4
+        // transition logic from map3 to map4
         if(Game.world().environment().getTrigger("map4") != null){
             if(Game.world().environment().getTrigger("map4").canTrigger(this)){
                 GameManager.transition("map4");
             }
         }
-        // get transition logic from map4 to map3
+        // transition logic from map4 to map3
         if(Game.world().environment().getTrigger("map4-3") != null){
             if(Game.world().environment().getTrigger("map4-3").canTrigger(this)){
                 GameManager.transition("map3");

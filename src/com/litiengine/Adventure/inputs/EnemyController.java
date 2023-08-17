@@ -41,6 +41,10 @@ public class EnemyController implements IBehaviorController{
 	}
 
 	protected boolean isNearCliff(){
+		/*
+		 * We detect if the entity collides with a predefined map Trigger called cliff
+		 * If Yes, We return true
+		 */
         Collection<Trigger> cliffs = Game.world().environment().getTriggers("cliff");
         for (Trigger cliff : cliffs) {
             if (cliff == null) {
@@ -82,19 +86,23 @@ public class EnemyController implements IBehaviorController{
 			return;
 		}
 		final long timeSinceDirectionChange = Game.time().since(this.directionChanged);
+		// random idle walking
 		if (timeSinceDirectionChange > this.nextDirectionChange) {
 			direction = this.direction == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
 			this.directionChanged = Game.time().now();
 			this.nextDirectionChange = Game.random().nextInt(1000, 2000);
 		}
+		// if the enemy is near a cliff, turn around
 		if(isNearCliff()){
 			direction = this.direction == Direction.LEFT ? Direction.RIGHT : Direction.LEFT;
 			this.directionChanged = Game.time().now();
 			this.nextDirectionChange = 10000;
 		}
+		// if the enemy is near a wall, that might be just a small bump, jump
 		if(canJump()){
 			this.enemy.jump.cast();
 		}
+		// if the enemy can see the player, turn to him and attack
 		if(canSee() && !isNearCliff()){
 			turnToTarget();
 			if((int) enemy.getCenter().distance(enemy.getTarget().getCenter())<ATTACK_RANGE){
@@ -112,7 +120,7 @@ public class EnemyController implements IBehaviorController{
 
 				
 		}
-
+		// based on above logic, move the enemy
 		this.getEntity().setAngle(this.direction.toAngle());
 		Game.physics().move(this.enemy, this.enemy.getTickVelocity());
 		
