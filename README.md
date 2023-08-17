@@ -1,6 +1,7 @@
 # Adventure
 This project requires Java 17 and is built using Gradle 7.5.1
 ![image](https://github.com/KoalaaDev/Adventure/assets/56580596/0c9933ea-f6ea-42bd-949a-7355a6a03117)
+![image](https://github.com/KoalaaDev/Adventure/assets/56580596/d83c9a8c-5fc8-4848-b973-0aec0e1c3515)
 
 # How to play
 ## Controls
