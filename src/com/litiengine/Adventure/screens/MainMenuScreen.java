@@ -9,6 +9,8 @@ import de.gurkenlabs.litiengine.resources.Resources;
 import de.gurkenlabs.litiengine.util.Imaging;
 import java.awt.image.BufferedImage;
 
+import com.litiengine.Adventure.GameManager;
+
 public class MainMenuScreen extends Screen{
 
     private ImageComponent bkgr;
@@ -39,8 +41,9 @@ public class MainMenuScreen extends Screen{
         menu.onChange(index -> {
             if(index == 0){
                suspend();
-                Game.screens().add(new CharacterSelectScreen());
-               Game.screens().display("CharacterScreen");
+               Game.screens().display("INGAME-SCREEN");
+                GameManager.start();
+                
             }
             if(index == 1){
                 System.exit(0);

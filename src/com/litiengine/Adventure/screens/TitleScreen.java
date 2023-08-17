@@ -41,7 +41,7 @@ public class TitleScreen extends Screen {
         bkgr = new ImageComponent(-50, 50, Resources.images().get("images/trial2.png"));
 
         TitleMenu = new Menu((Game.window().getWidth()  - buttonImg.getWidth()) / 2d,
-                (Game.window().getHeight() + 1350  - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
+                (Game.window().getHeight() + 900  - buttonImg.getHeight() * items.length) / 2d, buttonImg.getWidth(), buttonImg.getHeight() * items.length,
                 button, items);
         // Add a click event handler to transition to the "menu" screen when the button is clicked
         TitleMenu.onChange(index -> {

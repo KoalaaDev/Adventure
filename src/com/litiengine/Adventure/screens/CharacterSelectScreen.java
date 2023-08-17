@@ -40,8 +40,7 @@ public class CharacterSelectScreen extends Screen {
                // Wizard wizard = new Wizard();
                // Game.world().environment().add(wizard);
                 
-                GameManager.start();
-                Game.screens().display("INGAME-SCREEN");
+                
             }
             // Add conditions for other character options if needed
         });
